@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surya — Full Stack Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Theme + mobile-menu switches. Pure CSS, no JavaScript. -->
+  <input type="checkbox" id="theme-toggle-input" class="theme-toggle-checkbox">
+  <input type="checkbox" id="mobile-menu-input" class="mobile-menu-checkbox">
+
+  <div class="site-wrapper">
+
+    <!-- ============ NAVBAR ============ -->
+    <header class="site-navbar">
+      <a href="#home" class="navbar-brand-logo">SURYA<span class="navbar-brand-dot">.</span></a>
+
+      <nav class="navbar-links-list">
+        <a href="#home" class="navbar-link-home"><span class="navbar-link-home-number">01</span>HOME</a>
+        <a href="#about" class="navbar-link-about"><span class="navbar-link-about-number">02</span>ABOUT</a>
+        <a href="#skills" class="navbar-link-skills"><span class="navbar-link-skills-number">03</span>SKILLS</a>
+        <a href="#projects" class="navbar-link-projects"><span class="navbar-link-projects-number">04</span>PROJECTS</a>
+        <a href="#blog" class="navbar-link-blog"><span class="navbar-link-blog-number">05</span>BLOG</a>
+        <a href="#contact" class="navbar-link-contact"><span class="navbar-link-contact-number">06</span>CONTACT</a>
+      </nav>
+
+      <div class="navbar-actions-group">
+        <label for="theme-toggle-input" class="ui-switch" aria-label="Toggle light and dark theme">
+          <div class="slider">
+            <div class="circle"></div>
+          </div>
+        </label>
+        <a href="#contact" class="navbar-connect-button">LET'S CONNECT <span
+            class="navbar-connect-button-arrow">↗</span></a>
+        <label for="mobile-menu-input" class="navbar-mobile-menu-label" aria-label="Open menu">
+          <span class="navbar-mobile-menu-bar-top"></span>
+          <span class="navbar-mobile-menu-bar-middle"></span>
+          <span class="navbar-mobile-menu-bar-bottom"></span>
+        </label>
+      </div>
+    </header>
+
+    <!-- ============ MOBILE MENU PANEL ============ -->
+    <div class="mobile-nav-panel-container">
+      <div class="mobile-nav-panel-header">
+        <a href="#home" class="mobile-nav-brand-logo">SURYA<span class="mobile-nav-brand-dot">.</span></a>
+        <label for="mobile-menu-input" class="mobile-nav-close-label" aria-label="Close menu">✕</label>
+      </div>
+      <nav class="mobile-nav-links-list">
+        <a href="#home" class="mobile-nav-link-home"><span class="mobile-nav-link-home-number">01.</span>HOME</a>
+        <a href="#about" class="mobile-nav-link-about"><span class="mobile-nav-link-about-number">02.</span>ABOUT</a>
+        <a href="#skills" class="mobile-nav-link-skills"><span
+            class="mobile-nav-link-skills-number">03.</span>SKILLS</a>
+        <a href="#projects" class="mobile-nav-link-projects"><span
+            class="mobile-nav-link-projects-number">04.</span>PROJECTS</a>
+        <a href="#blog" class="mobile-nav-link-blog"><span class="mobile-nav-link-blog-number">05.</span>BLOG</a>
+        <a href="#contact" class="mobile-nav-link-contact"><span
+            class="mobile-nav-link-contact-number">06.</span>CONTACT</a>
+      </nav>
+      <a href="#contact" class="mobile-nav-connect-button">LET'S CONNECT <span
+          class="mobile-nav-connect-button-arrow">↗</span></a>
+      <div class="mobile-nav-social-icons">
+        <a href="" class="mobile-nav-social-github" aria-label="GitHub">              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-github"
+                viewBox="0 0 16 16">
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
+              </svg></a>
+        <a href="#" class="mobile-nav-social-linkedin" aria-label="LinkedIn"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-linkedin"
+                viewBox="0 0 16 16">
+                <path
+                  d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z" />
+              </svg></a>
+        <a href="#" class="mobile-nav-social-twitter" aria-label="Twitter">              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-twitter-x"
+                viewBox="0 0 16 16">
+                <path
+                  d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+              </svg></a>
+        <a href="#" class="mobile-nav-social-instagram" aria-label="Instagram">              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-instagram"
+                viewBox="0 0 16 16">
+                <path
+                  d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.719-.891.923-1.417.198-.509.333-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.174-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.033 1.024-.043 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
+              </svg></a>
+        <a href="#" class="mobile-nav-social-email" aria-label="Email">              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                class="bi bi-envelope-at" viewBox="0 0 16 16">
+                <path
+                  d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z" />
+                <path
+                  d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648m-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z" />
+              </svg></a>
+      </div>
+    </div>
+
+    <main>
+      <!-- ============ HERO SECTION ============ -->
+      <section id="home" class="hero-section">
+        <div class="hero-social-fixed-sidebar" aria-label="Social links">
+          <div class="hero-social-fixed-icons">
+            <a href="https://github.com/SURYA88977" aria-label="GitHub">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-github"
+                viewBox="0 0 16 16">
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
+              </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/surya-kesanakurthi-b840b8354" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-linkedin"
+                viewBox="0 0 16 16">
+                <path
+                  d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z" />
+              </svg>
+            </a>
+            <a href="#" aria-label="Twitter">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-twitter-x"
+                viewBox="0 0 16 16">
+                <path
+                  d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+              </svg>
+            </a>
+            <a href="#" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-instagram"
+                viewBox="0 0 16 16">
+                <path
+                  d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.719-.891.923-1.417.198-.509.333-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.174-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.033 1.024-.043 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
+              </svg>
+            </a>
+            <a href="mailto:suryavamsikrishna2005@gmail.com" aria-label="Email">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                class="bi bi-envelope-at" viewBox="0 0 16 16">
+                <path
+                  d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z" />
+                <path
+                  d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648m-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-content-grid">
+          <div class="hero-text-column">
+            <p class="hero-subtitle-mobile">// FULL STACK DEVELOPER</p>
+            <h1 class="hero-heading">HI, I'M<br><span class="hero-heading-accent">SURYA</span></h1>
+            <p class="hero-subtitle-desktop">FULL STACK DEVELOPER <span class="hero-subtitle-slashes">//</span></p>
+            <p class="hero-description">I build fast, responsive and accessible web applications that solve real world
+              problems.</p>
+
+            <div class="hero-buttons-group">
+              <a href="#projects" class="hero-view-work-button">VIEW MY WORK <span
+                  class="hero-view-work-arrow">↗</span></a>
+              <a href="https://drive.google.com/file/d/13FtpL_owNLEf_BkOKMROptvUiKjsDQgm/view?usp=sharing"
+                class="hero-download-resume-button">DOWNLOAD RESUME <span
+                  class="hero-download-resume-arrow">↓</span></a>
+            </div>
+          </div>
+
+          <div class="hero-image-column">
+            <div class="hero-photo-frame">
+              <img class="hero-photo-dark" src="./assets/DARK.png" alt="Portrait of Surya, dark theme">
+              <img class="hero-photo-light"
+                src="./assets/LIGHT........................................................png"
+                alt="Portrait of Surya, light theme">
+              <div class="hero-location-badge">17.6868° N<br>83.2185° E</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ABOUT / SKILLS / PROJECTS ============ -->
+      <section class="main-content-grid">
+
+        <!-- ABOUT -->
+        <div id="about" class="about-section reveal-on-scroll">
+          <h2 class="about-heading"><span class="about-heading-number">01</span> ABOUT ME</h2>
+          <p class="about-paragraph-1">I'm a passionate Full Stack Developer who loves building clean, efficient and
+            user-focused web applications.</p>
+          <p class="about-paragraph-2">I enjoy turning ideas into real products with modern technologies.</p>
+          <p class="about-signature">Surya</p>
+
+          <ul class="about-details-list">
+            <li class="about-detail-name"><span class="about-detail-name-icon">◆</span>
+              <div><strong class="about-detail-name-label">NAME</strong><span
+                  class="about-detail-name-value">Surya</span></div>
+            </li>
+            <li class="about-detail-location"><span class="about-detail-location-icon">◈</span>
+              <div><strong class="about-detail-location-label">LOCATION</strong><span
+                  class="about-detail-location-value">Andhra Pradesh, India</span></div>
+            </li>
+            <li class="about-detail-email"><span class="about-detail-email-icon">✉</span>
+              <div><strong class="about-detail-email-label">EMAIL</strong><span
+                  class="about-detail-email-value">suryavamsikrishna@gmail.com</span></div>
+            </li>
+            <li class="about-detail-experience"><span class="about-detail-experience-icon">▣</span>
+              <div><strong class="about-detail-experience-label">EXPERIENCE</strong><span
+                  class="about-detail-experience-value">Full Stack Developer</span></div>
+            </li>
+          </ul>
+
+          <a href="https://drive.google.com/file/d/13FtpL_owNLEf_BkOKMROptvUiKjsDQgm/view?usp=sharing"
+            class="about-resume-button">DOWNLOAD RESUME <span class="about-resume-arrow">↓</span></a>
+        </div>
+
+        <!-- SKILLS -->
+        <div id="skills" class="skills-section reveal-on-scroll">
+          <h2 class="skills-heading"><span class="skills-heading-number">02</span> MY SKILLS</h2>
+
+          <div class="skills-grid">
+            <div class="skill-frontend-card reveal-on-scroll">
+              <h3 class="skill-frontend-title">&lt;/&gt; FRONTEND</h3>
+              <ul>
+                <li class="skill-frontend-item">HTML5</li>
+                <li class="skill-frontend-item">CSS3</li>
+                <li class="skill-frontend-item">JavaScript</li>
+                <li class="skill-frontend-item">React.js</li>
+              </ul>
+            </div>
+            <div class="skill-backend-card reveal-on-scroll">
+              <h3 class="skill-backend-title">▤ BACKEND</h3>
+              <ul>
+                <li class="skill-backend-item">Python</li>
+                <li class="skill-backend-item">-----</li>
+                <li class="skill-backend-item">-------</li>
+              </ul>
+            </div>
+            <!-- <div class="skill-database-card">
+              <h3 class="skill-database-title">▦ DATABASE</h3>
+              <ul><li class="skill-database-item">MySQL</li><li class="skill-database-item">MongoDB</li><li class="skill-database-item">Firebase</li><li class="skill-database-item">PostgreSQL</li></ul>
+            </div> -->
+            <div class="skill-tools-card reveal-on-scroll">
+              <h3 class="skill-tools-title">✂ TOOLS</h3>
+              <ul>
+                <li class="skill-tools-item">Git &amp; GitHub</li>
+                <li class="skill-tools-item">VS Code</li>
+                <li class="skill-tools-item">Google Colab</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECTS -->
+        <div id="projects" class="projects-section reveal-on-scroll">
+          <div class="projects-section-header">
+            <h2 class="projects-heading"><span class="projects-heading-number">03</span> FEATURED PROJECTS</h2>
+
+          </div>
+
+          <div class="project-weather-app reveal-on-scroll">
+            <span class="project-weather-app-number-tag">01</span>
+            <div class="project-weather-app-thumbnail">
+              <img src="./assets/portfolio.png" alt="">
+            </div>
+            <div class="project-weather-app-details">
+              <h3 class="project-weather-app-title">Personal Portfolio Website</h3>
+              <p class="project-weather-app-description">A modern and responsive personal portfolio website built using
+                HTML, CSS, and JavaScript. The website showcases my skills, projects, experience, and professional
+                profile while providing a clean and engaging user experience across all screen sizes. It also includes a
+                blog and newsletter signup, with SEO-friendly markup to strengthen my online presence and support career
+                growth.</p>
+              <div class="project-weather-app-tech-tags"><span class="project-weather-app-tag-html">HTML</span><span
+                  class="project-weather-app-tag-css">CSS</span><span class="project-weather-app-tag-js">JS</span></div>
+              <a class="project-btn" href="https://github.com/SURYA88977/Airbnb-clone">Open in GitHub</a>
+            </div>
+          </div>
+          <br>
+
+
+          <div class="project-task-manager reveal-on-scroll">
+            <span class="project-task-manager-number-tag">02</span>
+            <div class="project-task-manager-thumbnail">
+              <img src="./assets/airbnb clone.png" alt="">
+            </div>
+            <div class="project-task-manager-details">
+              <h3 class="project-task-manager-title">Airbnb Webpage Clone</h3>
+              <p class="project-task-manager-description">A responsive clone of the Airbnb webpage built using HTML and
+                CSS. The project focuses on recreating Airbnb’s clean layout, modern design, and responsive user
+                experience across different screen sizes, including desktop, tablet, and mobile devices. &amp;
+                reminders.</p>
+              <div class="project-task-manager-tech-tags"><span class="project-task-manager-tag-react">HTML</span><span
+                  class="project-task-manager-tag-node">CSS</span><span class="project-task-manager-arrow"></span>
+              </div>
+              <a class="project-btn" href="https://github.com/SURYA88977/Airbnb-clone">Open in GitHub</a>
+            </div>
+          </div>
+
+          <div class="project-spice-palase reveal-on-scroll">
+            <span class="project-spice-palase-number-tag">03</span>
+            <div class="project-spice-palase-thumbnail">
+              <img class="project-spice-palase-image" src="./assets/resturant food ordering system.png"
+                alt="Spice Palase restaurant ordering system screenshot">
+            </div>
+            <div class="project-spice-palase-details">
+              <h3 class="project-spice-palase-title">Spice-Palase</h3>
+              <p class="project-spice-palase-description">A responsive frontend restaurant ordering system designed to
+                provide a smooth and user-friendly food ordering experience. <br> Users can explore the menu, add items
+                to the cart, update quantities, and view their order summary with dynamic JavaScript interactions.</p>
+              <div class="project-spice-palase-tech-tags"><span class="project-spice-palase-tag-html">HTML</span><span
+                  class="project-spice-palase-tag-css">CSS</span><span class="project-spice-palase-tag-js">JS</span>
+              </div>
+              <a class="project-btn" href="https://github.com/SURYA88977/spice-palase">Open in GitHub</a>
+            </div>
+          </div>
+
+
+        </div>
+      </section>
+
+      <!-- ============ STATS ============ -->
+      <section class="stats-section reveal-on-scroll">
+        <div class="stat-experience">
+          <img class="stat-experience-icon" src="./assets/expirence.png" alt="Experience">
+          <strong class="stat-experience-value" data-count-target="0" data-count-suffix="">Fresher</strong>
+          <p class="stat-experience-label">Experience</p>
+        </div>
+        <div class="stat-projects">
+          <img class="stat-projects-icon" src="./assets/projects.png" alt="Completed">
+          <strong class="stat-projects-value" data-count-target="5" data-count-suffix="+ Projects">5+ Projects</strong>
+          <p class="stat-projects-label">Web Projects</p>
+        </div>
+        <div class="stat-learning">
+          <img class="stat-learning-icon" src="./assets/learning.png" alt="Learning">
+          <strong class="stat-learning-value">Python &amp; DSA</strong>
+          <p class="stat-learning-label">Problem Solving</p>
+        </div>
+        <div class="stat-focus">
+          <img class="stat-focus-icon" src="./assets/focus.png" alt="Focus">
+          <strong class="stat-focus-value">Clean Code</strong>
+          <p class="stat-focus-label">Performance &amp; SEO</p>
+        </div>
+        <div class="stats-dot-pattern" aria-hidden="true"></div>
+      </section>
+
+      <!-- ============ BLOG ============ -->
+      <section id="blog" class="blog-section reveal-on-scroll">
+        <div class="blog-section-header">
+          <h2 class="blog-heading"><span class="blog-heading-number">04</span> LATEST FROM BLOG</h2>
+          <a href="" class="blog-view-all-link">VIEW ALL BLOGS <span class="">↗</span></a>
+        </div>
+
+        <div class="blog-posts-grid">
+          <article class="blog-post-journey reveal-on-scroll">
+            <span class="blog-post-journey-number">01</span>
+            <h3 class="blog-post-journey-title">HTML: A Complete Guide</h3>
+            <p class="blog-post-journey-date">APR 28, 2024 &nbsp;·&nbsp; 15 MIN READ</p>
+            <p class="blog-post-journey-excerpt">How I started coding and became a developer.</p>
+            <a href="./Blog1.html" class="blog-post-journey-arrow">↗</a>
+          </article>
+
+
+          <article class="blog-post-flexbox reveal-on-scroll">
+            <span class="blog-post-flexbox-number">02</span>
+            <h3 class="blog-post-flexbox-title">CSS and Responsive Web Design: A Complete Guide</h3>
+            <p class="blog-post-flexbox-date">MAY 05, 2024 &nbsp;·&nbsp; 25 MIN READ</p>
+            <p class="blog-post-flexbox-excerpt">Learn flexbox with practical examples and layouts.</p>
+            <a href="./Blog2.html" class="blog-post-flexbox-arrow">↗</a>
+          </article>
+
+
+          <article class="blog-post-closures reveal-on-scroll">
+            <span class="blog-post-closures-number">03</span>
+            <h3 class="blog-post-closures-title">JavaScript DOM: A Complete Guide to the Document Object Model</h3>
+            <p class="blog-post-closures-date">AGU 15, 2026 &nbsp;·&nbsp; 30 MIN READ</p>
+            <p class="blog-post-closures-excerpt">A simple guide to the JavaScript Dom with examples.</p>
+            <a href="./Blog3.html" class="blog-post-closures-arrow">↗</a>
+          </article>
+
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer id="contact" class="site-footer">
+      <div class="footer-columns">
+        <div class="footer-brand-column">
+          <a href="#home" class="footer-brand-logo">SURYA<span class="footer-brand-dot">.</span></a>
+          <p class="footer-brand-description">Building digital experiences that are fast, accessible and impactful.</p>
+          <div class="footer-social-icons">
+
+            <a href="#" class="footer-social-github" aria-label="GitHub"> <svg xmlns="http://www.w3.org/2000/svg"
+                width="20" height="20" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                <path
+                  d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
+              </svg></a>
+
+            <a href="https://www.linkedin.com/in/surya-kesanakurthi-b840b8354" class="footer-social-linkedin"
+              aria-label="LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                class="bi bi-linkedin" viewBox="0 0 16 16">
+                <path
+                  d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z" />
+              </svg></a>
+
+
+            <a href="#" class="footer-social-twitter" aria-label="Twitter"> <svg xmlns="http://www.w3.org/2000/svg"
+                width="20" height="20" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+                <path
+                  d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+              </svg></a>
+
+            <a href="#" class="footer-social-instagram" aria-label="Instagram"> <svg xmlns="http://www.w3.org/2000/svg"
+                width="20" height="20" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                <path
+                  d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.719-.891.923-1.417.198-.509.333-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.174-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.033 1.024-.043 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334" />
+              </svg></a>
+
+            <a href="mailto:suryavamsikrishna2005@gmail.com" class="footer-social-email" aria-label="Email"><svg
+                xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-envelope-at"
+                viewBox="0 0 16 16">
+                <path
+                  d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z" />
+                <path
+                  d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648m-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z" />
+              </svg></a>
+          </div>
+        </div>
+
+        <div class="footer-quicklinks-column">
+          <h4 class="footer-quicklinks-heading">QUICK LINKS</h4>
+          <a href="#home" class="footer-quicklink-home">01. HOME</a>
+          <a href="#about" class="footer-quicklink-about">02. ABOUT</a>
+          <a href="#skills" class="footer-quicklink-skills">03. SKILLS</a>
+          <a href="#projects" class="footer-quicklink-projects">04. PROJECTS</a>
+          <a href="#blog" class="footer-quicklink-blog">05. BLOG</a>
+          <a href="#contact" class="footer-quicklink-contact">06. CONTACT</a>
+        </div>
+
+        <div class="footer-contact-column">
+          <h4 class="footer-contact-heading">GET IN TOUCH</h4>
+          <p class="footer-contact-email">✉ &nbsp;suryavamsikrishna2005@gmail.com</p>
+          <p class="footer-contact-phone">☎ &nbsp;+91 8074033030</p>
+          <p class="footer-contact-location">⚲ &nbsp;Andhra Pradesh, India</p>
+          <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" class="footer-contact-button">SEND MESSAGE <span
+              class="footer-contact-arrow">↗</span></a>
+        </div>
+      </div>
+
+      <div class="footer-copyright-row">
+        <span class="footer-copyright-text">© 2024 SURYA. ALL RIGHTS RESERVED.</span>
+        <span class="footer-credit-text">DESIGNED &amp; CODED WITH <span class="footer-credit-heart">♥</span> BY
+          SURYA</span>
+      </div>
+    </footer>
+
+    <!-- Scroll progress bar -->
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+
+    <!-- Back to top -->
+    <button class="back-to-top-button" id="backToTopButton" aria-label="Back to top">↑</button>
+
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>

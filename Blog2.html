@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS and Responsive Web Design: A Complete Guide</title>
+    <style>
+        :root {
+            --bg: #0c0c0c;
+            --surface: #161616;
+            --surface-alt: #141414;
+            --border: #2b2b2b;
+            --text: #f4f2ec;
+            --text-muted: #96938c;
+            --accent: #e8501f;
+            --code-bg: #111111;
+            --code-text: #e8e6df;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        /* ---------- Layout ---------- */
+
+        .page-wrapper {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 1.5rem 5rem;
+        }
+
+        
+        .top-bar {
+            padding-top: 1.5rem;
+        }
+
+        .home-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .home-button:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            text-decoration: none;
+        }
+
+        .home-button svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        .article-header {
+            padding: 4rem 0 2.5rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2.5rem;
+        }
+
+        .article-eyebrow {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            text-transform: uppercase;
+            border: 1px solid var(--accent);
+            padding: 0.3rem 0.7rem;
+            border-radius: 3px;
+            margin-bottom: 1.2rem;
+        }
+
+        .article-title {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            line-height: 1.15;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            margin: 0 0 1rem;
+        }
+
+        .article-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 60ch;
+            margin: 0 0 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .article-meta-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            display: inline-block;
+        }
+
+        /* ---------- Table of contents ---------- */
+
+        .toc {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 3rem;
+        }
+
+        .toc-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .toc-list {
+            columns: 2;
+            column-gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 0.9rem;
+        }
+
+        .toc-list li {
+            break-inside: avoid;
+            margin-bottom: 0.55rem;
+        }
+
+        .toc-list a {
+            color: var(--text-muted);
+        }
+
+        .toc-list a:hover {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* ---------- Article body ---------- */
+
+        article section {
+            margin-bottom: 3rem;
+        }
+
+        article h2 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin: 0 0 1rem;
+            padding-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        article h2 .section-number {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fff;
+            background: var(--accent);
+            width: 1.9rem;
+            height: 1.9rem;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        article h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 1.8rem 0 0.7rem;
+            color: var(--text);
+        }
+
+        article p {
+            margin: 0 0 1rem;
+            color: #d8d5cc;
+        }
+
+        article ul,
+        article ol {
+            margin: 0 0 1.2rem;
+            padding-left: 1.4rem;
+            color: #d8d5cc;
+        }
+
+        article li {
+            margin-bottom: 0.4rem;
+        }
+
+        strong {
+            color: var(--text);
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: var(--code-bg);
+            color: var(--accent);
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.88em;
+            border: 1px solid var(--border);
+        }
+
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.1rem 1.3rem;
+            overflow-x: auto;
+            margin: 0 0 1.3rem;
+            position: relative;
+        }
+
+        pre code {
+            background: none;
+            border: none;
+            color: var(--code-text);
+            padding: 0;
+            font-size: 0.86rem;
+            line-height: 1.6;
+            white-space: pre;
+        }
+
+        .code-label {
+            position: absolute;
+            top: 0.6rem;
+            right: 0.9rem;
+            font-size: 0.65rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .callout {
+            background: var(--surface-alt);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px;
+            padding: 1rem 1.3rem;
+            margin: 0 0 1.2rem;
+            color: #d8d5cc;
+            font-size: 0.95rem;
+        }
+
+        .callout strong {
+            color: var(--accent);
+        }
+
+        .ascii-tree {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.1rem 1.3rem;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: var(--code-text);
+            line-height: 1.6;
+            overflow-x: auto;
+            margin-bottom: 1.3rem;
+            white-space: pre;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-bottom: 1.3rem;
+        }
+
+        .two-col-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.2rem 1.3rem;
+        }
+
+        .two-col-card h4 {
+            margin: 0 0 0.7rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .two-col-card p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .method-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.3rem;
+            font-size: 0.88rem;
+        }
+
+        .method-table th,
+        .method-table td {
+            border: 1px solid var(--border);
+            padding: 0.65rem 0.9rem;
+            text-align: left;
+        }
+
+        .method-table th {
+            background: var(--surface);
+            color: var(--accent);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .method-table td {
+            color: #d8d5cc;
+        }
+
+        .method-table code {
+            border: none;
+            background: transparent;
+            padding: 0;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.3rem;
+        }
+
+        .tag-pill {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.78rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.35rem 0.7rem;
+            border-radius: 20px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.3rem;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.1rem 1.2rem;
+        }
+
+        .project-card h4 {
+            margin: 0 0 0.6rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .project-card ul {
+            margin: 0;
+            padding-left: 1.1rem;
+            font-size: 0.88rem;
+        }
+
+        .project-card li {
+            margin-bottom: 0.3rem;
+        }
+
+        hr.divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2.5rem 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .faq-number {
+            color: var(--accent);
+        }
+
+        .faq-answer-hint {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .back-to-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+        }
+
+        .back-to-top:hover {
+            color: var(--accent);
+        }
+
+        .conclusion-box {
+            background: linear-gradient(135deg, rgba(232, 80, 31, 0.12), rgba(232, 80, 31, 0.02));
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 1rem;
+        }
+
+        .conclusion-flow {
+            font-family: 'Consolas', 'Monaco', monospace;
+            text-align: center;
+            color: var(--accent);
+            font-size: 0.95rem;
+            line-height: 2.1;
+            margin: 1.2rem 0;
+        }
+
+        footer.article-footer {
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+            padding-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        footer.article-footer .heart {
+            color: var(--accent);
+        }
+
+        @media (max-width: 620px) {
+            .toc-list {
+                columns: 1;
+            }
+
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+
+            .article-header {
+                padding-top: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+        
+        <div class="top-bar">
+            <a class="home-button" href="./index.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M3 11.5 12 4l9 7.5" />
+                    <path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9" />
+                </svg>
+                Home
+            </a>
+        </div>
+
+
+        <header class="article-header">
+            <span class="article-eyebrow">CSS · Web Development</span>
+            <h1 class="article-title">CSS and Responsive Web Design: A Complete Guide</h1>
+            <p class="article-subtitle">
+                From selectors and the box model to Flexbox, Grid, and fluid typography — everything
+                you need to style a page and make it work beautifully on every screen size.
+            </p>
+            <div class="article-meta">
+                <span>By Surya</span>
+                <span class="article-meta-dot"></span>
+                <span>Web Development</span>
+                <span class="article-meta-dot"></span>
+                <span>20 min read</span>
+            </div>
+        </header>
+
+        <nav class="toc" aria-label="Table of contents">
+            <div class="toc-title">In this guide</div>
+            <ul class="toc-list">
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#what-is-css">1. What is CSS?</a></li>
+                <li><a href="#why-important">2. Why CSS matters</a></li>
+                <li><a href="#adding-css">3. Ways to add CSS</a></li>
+                <li><a href="#syntax">4. CSS syntax</a></li>
+                <li><a href="#selectors">5. Selectors</a></li>
+                <li><a href="#colors-variables">6. Colors & variables</a></li>
+                <li><a href="#fonts">7. Fonts</a></li>
+                <li><a href="#box-model">8. The box model</a></li>
+                <li><a href="#units">9. Units — px, %, rem, vw</a></li>
+                <li><a href="#display">10. Display & positioning</a></li>
+                <li><a href="#flexbox">11. Flexbox</a></li>
+                <li><a href="#grid">12. CSS Grid</a></li>
+                <li><a href="#flex-vs-grid">13. Flexbox vs Grid</a></li>
+                <li><a href="#responsive-intro">14. What is responsive design?</a></li>
+                <li><a href="#mobile-first">15. Mobile-first & media queries</a></li>
+                <li><a href="#responsive-images">16. Responsive images & typography</a></li>
+                <li><a href="#modern-functions">17. clamp(), min(), max()</a></li>
+                <li><a href="#transitions">18. Transitions & animations</a></li>
+                <li><a href="#problems">19. Common problems & fixes</a></li>
+                <li><a href="#best-practices">20. Best practices</a></li>
+                <li><a href="#example">21. A complete responsive example</a></li>
+                <li><a href="#roadmap">22. Roadmap & projects</a></li>
+                <li><a href="#faq">23. Interview questions</a></li>
+                <li><a href="#conclusion">Conclusion</a></li>
+            </ul>
+        </nav>
+
+        <article>
+
+            <section id="intro">
+                <p>
+                    A website needs more than HTML to look attractive and work properly. HTML provides
+                    the structure of a webpage, while <strong>CSS (Cascading Style Sheets)</strong>
+                    controls how that structure looks and behaves visually — colors, fonts, spacing,
+                    layouts, animations, buttons, cards, navigation bars, images, and much more.
+                </p>
+                <p>
+                    But modern websites also need to work across wildly different screen sizes, from a
+                    320px phone to a 2560px monitor. A layout that looks perfect on desktop can break
+                    completely on mobile if it isn't built responsively — which is where
+                    <strong>Responsive Web Design</strong> comes in.
+                </p>
+                <p>
+                    This guide covers CSS fundamentals, modern layout systems, media queries, responsive
+                    units, Flexbox, Grid, responsive images, breakpoints, and practical techniques for
+                    building layouts that adapt to any device.
+                </p>
+            </section>
+
+            <section id="what-is-css">
+                <h2><span class="section-number">01</span>What is CSS?</h2>
+                <p><strong>CSS stands for Cascading Style Sheets</strong> — a stylesheet language used to describe the
+                    presentation of HTML elements.</p>
+                <pre><span class="code-label">html</span><code>&lt;h1&gt;Hello World&lt;/h1&gt;</code></pre>
+                <p>Without CSS, the browser renders the heading with its default styling. Style it with:</p>
+                <pre><span class="code-label">css</span><code>h1 {
+    color: blue;
+    font-size: 40px;
+}</code></pre>
+                <p>Now the heading appears larger and blue. Together with HTML and JavaScript, CSS forms one of the
+                    three pillars of frontend development:</p>
+                <div class="ascii-tree">HTML
+                    ↓
+                    Structure
+
+                    CSS
+                    ↓
+                    Presentation
+
+                    JavaScript
+                    ↓
+                    Behavior</div>
+            </section>
+
+            <section id="why-important">
+                <h2><span class="section-number">02</span>Why is CSS important?</h2>
+                <p>CSS is responsible for the entire visual experience of a website. With it, you can control:</p>
+                <div class="two-col">
+                    <div class="two-col-card">
+                        <h4>Appearance</h4>
+                        <p>Colors, fonts, backgrounds, borders, shadows, and sizing.</p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>Layout</h4>
+                        <p>Positioning, spacing, and how elements arrange relative to each other.</p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>Motion</h4>
+                        <p>Transitions and animations that make interactions feel alive.</p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>Adaptability</h4>
+                        <p>Responsive behavior so the page works on any screen size.</p>
+                    </div>
+                </div>
+                <p>A plain HTML button:</p>
+                <pre><span class="code-label">html</span><code>&lt;button&gt;Click Me&lt;/button&gt;</code></pre>
+                <p>becomes a modern button with a handful of declarations:</p>
+                <pre><span class="code-label">css</span><code>button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background: black;
+    color: white;
+    cursor: pointer;
+}</code></pre>
+            </section>
+
+            <section id="adding-css">
+                <h2><span class="section-number">03</span>Ways to add CSS</h2>
+
+                <h3>Inline CSS</h3>
+                <p>Written directly on an HTML element via the <code>style</code> attribute.</p>
+                <pre><span class="code-label">html</span><code>&lt;h1 style="color: red;"&gt;
+    Hello
+&lt;/h1&gt;</code></pre>
+                <p>Quick for one-off tests, but repetitive and hard to maintain at scale.</p>
+
+                <h3>Internal CSS</h3>
+                <p>Written inside a <code>&lt;style&gt;</code> element in the document head — fine for small pages.
+                </p>
+                <pre><span class="code-label">html</span><code>&lt;head&gt;
+
+&lt;style&gt;
+h1 {
+    color: red;
+}
+&lt;/style&gt;
+
+&lt;/head&gt;</code></pre>
+
+                <h3>External CSS</h3>
+                <p>Stored in a separate <code>.css</code> file and linked from the HTML — the preferred approach for
+                    most real projects, since it keeps structure and presentation cleanly separated.</p>
+                <pre><span class="code-label">html</span><code>&lt;link rel="stylesheet" href="style.css"&gt;</code></pre>
+                <pre><span class="code-label">css</span><code>h1 {
+    color: red;
+}</code></pre>
+            </section>
+
+            <section id="syntax">
+                <h2><span class="section-number">04</span>CSS syntax</h2>
+                <p>A CSS rule follows this structure:</p>
+                <pre><span class="code-label">css</span><code>selector {
+    property: value;
+}</code></pre>
+                <pre><span class="code-label">css</span><code>p {
+    color: blue;
+    font-size: 18px;
+}</code></pre>
+                <div class="two-col">
+                    <div class="two-col-card">
+                        <h4>Selector</h4>
+                        <p><code>p</code> — which elements to target.</p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>Declaration</h4>
+                        <p><code>property: value;</code> — the styling to apply.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="selectors">
+                <h2><span class="section-number">05</span>CSS selectors</h2>
+                <p>Selectors tell CSS which HTML elements should be styled.</p>
+
+                <h3>Element selector</h3>
+                <pre><span class="code-label">css</span><code>p {
+    color: red;
+}</code></pre>
+                <p>Selects every <code>&lt;p&gt;</code> on the page.</p>
+
+                <h3>Class selector</h3>
+                <pre><span class="code-label">html</span><code>&lt;p class="description"&gt;
+    Welcome
+&lt;/p&gt;</code></pre>
+                <pre><span class="code-label">css</span><code>.description {
+    color: blue;
+}</code></pre>
+                <p>Classes are the standard tool for reusable styling across many elements.</p>
+
+                <h3>ID selector</h3>
+                <pre><span class="code-label">html</span><code>&lt;h1 id="title"&gt;
+    Welcome
+&lt;/h1&gt;</code></pre>
+                <pre><span class="code-label">css</span><code>#title {
+    color: green;
+}</code></pre>
+                <p>IDs should generally be unique within a page.</p>
+
+                <h3>Universal, grouping, and descendant selectors</h3>
+                <pre><span class="code-label">css</span><code>/* Universal — used in CSS resets */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Grouping — share styles across selectors */
+h1,
+h2,
+h3 {
+    font-family: Arial, sans-serif;
+}
+
+/* Descendant — target elements inside another */
+.card p {
+    color: gray;
+}</code></pre>
+            </section>
+
+            <section id="colors-variables">
+                <h2><span class="section-number">06</span>Colors & CSS variables</h2>
+                <p>CSS supports several ways to define color:</p>
+                <pre><span class="code-label">css</span><code>color: red;                      /* name */
+color: #ff0000;                  /* hex */
+color: rgb(255, 0, 0);           /* rgb */
+color: rgba(255, 0, 0, 0.5);     /* rgba */
+color: hsl(0, 100%, 50%);        /* hsl */</code></pre>
+                <p>Modern projects usually manage color — and other repeated values — through
+                    <strong>CSS variables</strong>:</p>
+                <pre><span class="code-label">css</span><code>:root {
+    --primary-color: #e8501f;
+    --background: #0c0c0c;
+    --text-color: white;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}</code></pre>
+                <div class="callout">
+                    <strong>Why it matters:</strong> variables keep a design system consistent — change a color once
+                    at the root and every element using it updates automatically.
+                </div>
+            </section>
+
+            <section id="fonts">
+                <h2><span class="section-number">07</span>Fonts & typography</h2>
+                <p>Typography plays a major role in how a website feels. The core properties:</p>
+                <div class="tag-row">
+                    <span class="tag-pill">font-family</span>
+                    <span class="tag-pill">font-size</span>
+                    <span class="tag-pill">font-weight</span>
+                    <span class="tag-pill">font-style</span>
+                    <span class="tag-pill">line-height</span>
+                    <span class="tag-pill">letter-spacing</span>
+                </div>
+                <pre><span class="code-label">css</span><code>h1 {
+    font-family: Arial, sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1.2;
+}</code></pre>
+            </section>
+
+            <section id="box-model">
+                <h2><span class="section-number">08</span>The CSS box model</h2>
+                <p>Every HTML element can be thought of as a rectangular box made of four layers:</p>
+                <div class="ascii-tree">Content
+                    ↓
+                    Padding
+                    ↓
+                    Border
+                    ↓
+                    Margin</div>
+                <pre><span class="code-label">css</span><code>.card {
+    width: 300px;
+    padding: 20px;
+    border: 2px solid black;
+    margin: 30px;
+}</code></pre>
+                <p>Visually:</p>
+                <div class="ascii-tree">Margin
+                    ┌──────────────────────┐
+                    │      Border          │
+                    │  ┌────────────────┐  │
+                    │  │    Padding     │  │
+                    │  │  ┌──────────┐  │  │
+                    │  │  │ Content  │  │  │
+                    │  │  └──────────┘  │  │
+                    │  └────────────────┘  │
+                    └──────────────────────┘</div>
+
+                <h3>Padding vs margin</h3>
+                <div class="two-col">
+                    <div class="two-col-card">
+                        <h4>Padding</h4>
+                        <p>Creates space <strong>inside</strong> an element, between its content and its border.</p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>Margin</h4>
+                        <p>Creates space <strong>outside</strong> an element, pushing other elements away.</p>
+                    </div>
+                </div>
+
+                <h3><code>box-sizing</code></h3>
+                <p>By default CSS uses <code>content-box</code>, where padding and border add to the declared width. A
+                    common reset switches to <code>border-box</code>, where width already includes them:</p>
+                <pre><span class="code-label">css</span><code>* {
+    box-sizing: border-box;
+}</code></pre>
+                <p>This makes layout math far more predictable.</p>
+            </section>
+
+            <section id="units">
+                <h2><span class="section-number">09</span>CSS units</h2>
+                <p>Dimensions can be set with absolute or relative units.</p>
+                <div class="two-col">
+                    <div class="two-col-card">
+                        <h4>Absolute</h4>
+                        <p><code>px</code> — a fixed pixel value, e.g. <code>font-size: 20px;</code></p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>Relative</h4>
+                        <p><code>%</code>, <code>em</code>, <code>rem</code>, <code>vw</code>, <code>vh</code>,
+                            <code>vmin</code>, <code>vmax</code></p>
+                    </div>
+                </div>
+
+                <h3><code>rem</code> vs <code>em</code></h3>
+                <pre><span class="code-label">css</span><code>html {
+    font-size: 16px;
+}
+
+h1 {
+    font-size: 3rem;   /* relative to the root: 48px */
+}
+
+.card {
+    font-size: 16px;
+    padding: 2em;      /* relative to this element's own font size */
+}</code></pre>
+                <p><code>rem</code> is relative to the root HTML element's font size, which makes it predictable for
+                    scalable typography and spacing. <code>em</code> is relative to the element's own (or inherited)
+                    font size, so it can compound in nested elements.</p>
+
+                <h3>Percentage & viewport units</h3>
+                <pre><span class="code-label">css</span><code>.container {
+    width: 80%;         /* relative to the parent */
+}
+
+.hero {
+    width: 100vw;       /* 100% of viewport width */
+    min-height: 100vh;  /* 100% of viewport height */
+}</code></pre>
+            </section>
+
+            <section id="display">
+                <h2><span class="section-number">10</span>Display & positioning</h2>
+                <p>The <code>display</code> property controls how an element participates in layout:</p>
+                <pre><span class="code-label">css</span><code>display: block;
+display: inline;
+display: inline-block;
+display: flex;
+display: grid;
+display: none;</code></pre>
+                <div class="two-col">
+                    <div class="two-col-card">
+                        <h4>Block elements</h4>
+                        <p>Occupy the available width by default — <code>div</code>, <code>p</code>, <code>h1</code>,
+                            <code>section</code>.</p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>Inline elements</h4>
+                        <p>Occupy only the space they need — <code>span</code>, <code>a</code>, <code>strong</code>.
+                        </p>
+                    </div>
+                </div>
+
+                <h3>Positioning</h3>
+                <table class="method-table">
+                    <thead>
+                        <tr>
+                            <th>Value</th>
+                            <th>Behavior</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>static</code></td>
+                            <td>Default flow, no offset properties apply</td>
+                        </tr>
+                        <tr>
+                            <td><code>relative</code></td>
+                            <td>Stays in flow but can be visually shifted; anchors absolute children</td>
+                        </tr>
+                        <tr>
+                            <td><code>absolute</code></td>
+                            <td>Positioned relative to the nearest positioned ancestor</td>
+                        </tr>
+                        <tr>
+                            <td><code>fixed</code></td>
+                            <td>Anchored to the viewport, ignores scrolling</td>
+                        </tr>
+                        <tr>
+                            <td><code>sticky</code></td>
+                            <td>Acts relative, then sticks once a scroll threshold is reached</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pre><span class="code-label">css</span><code>.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+header {
+    position: sticky;
+    top: 0;
+}</code></pre>
+            </section>
+
+            <section id="flexbox">
+                <h2><span class="section-number">11</span>Flexbox</h2>
+                <p><strong>Flexbox</strong> is designed for arranging elements along a single dimension.</p>
+                <pre><span class="code-label">css</span><code>.container {
+    display: flex;
+}</code></pre>
+                <p>Alignment and spacing are controlled with:</p>
+                <div class="tag-row">
+                    <span class="tag-pill">justify-content</span>
+                    <span class="tag-pill">align-items</span>
+                    <span class="tag-pill">flex-direction</span>
+                    <span class="tag-pill">flex-wrap</span>
+                    <span class="tag-pill">gap</span>
+                </div>
+                <pre><span class="code-label">css</span><code>.container {
+    display: flex;
+    justify-content: center;  /* main axis */
+    align-items: center;      /* cross axis */
+}</code></pre>
+                <p>That combination is the classic pattern for perfectly centering content.</p>
+                <pre><span class="code-label">css</span><code>.container {
+    display: flex;
+    flex-direction: column; /* stack vertically instead of horizontally */
+    flex-wrap: wrap;        /* let items wrap onto new lines */
+}</code></pre>
+                <p><code>flex-wrap</code> is especially useful for responsive card rows that need to reflow on
+                    smaller screens.</p>
+            </section>
+
+            <section id="grid">
+                <h2><span class="section-number">12</span>CSS Grid</h2>
+                <p>While Flexbox is one-dimensional, <strong>Grid</strong> is built for two-dimensional layouts —
+                    rows and columns together.</p>
+                <pre><span class="code-label">css</span><code>.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}</code></pre>
+
+                <h3>The <code>fr</code> unit</h3>
+                <p><code>fr</code> means "fraction of available space":</p>
+                <pre><span class="code-label">css</span><code>grid-template-columns: 1fr 1fr 1fr;   /* three equal columns */
+grid-template-columns: 2fr 1fr;       /* first column gets 2x the space */</code></pre>
+
+                <h3>Auto-responsive grid</h3>
+                <p>One of the most useful Grid techniques lets the browser decide how many columns fit, with no media
+                    query at all:</p>
+                <pre><span class="code-label">css</span><code>.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}</code></pre>
+                <div class="callout">
+                    <strong>Tip:</strong> this single rule can replace several breakpoint-specific column-count media
+                    queries for card and gallery layouts.
+                </div>
+            </section>
+
+            <section id="flex-vs-grid">
+                <h2><span class="section-number">13</span>Flexbox vs Grid</h2>
+                <p>A very common interview question — the distinction comes down to dimensionality.</p>
+                <div class="two-col">
+                    <div class="two-col-card">
+                        <h4>Flexbox — one dimension</h4>
+                        <p>Navigation bars, button groups, horizontal card rows, aligning content along a single
+                            axis.</p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>Grid — two dimensions</h4>
+                        <p>Dashboard layouts, product grids, image galleries, and complex page sections with both
+                            rows and columns.</p>
+                    </div>
+                </div>
+                <p>They aren't mutually exclusive — a page commonly uses Grid for the overall layout and Flexbox
+                    inside individual components.</p>
+            </section>
+
+            <section id="responsive-intro">
+                <h2><span class="section-number">14</span>What is responsive web design?</h2>
+                <p><strong>Responsive Web Design</strong> means building a website that adapts its layout and content
+                    to different screen sizes — rather than designing separate sites for desktop, tablet, and mobile.
+                </p>
+                <p>Users load the same page at wildly different widths:</p>
+                <div class="ascii-tree">320px phone
+                    375px phone
+                    768px tablet
+                    1024px laptop
+                    1440px desktop
+                    2560px monitor</div>
+                <p>A good responsive website has:</p>
+                <ul>
+                    <li>Flexible layouts</li>
+                    <li>Flexible images</li>
+                    <li>Responsive typography</li>
+                    <li>Appropriate breakpoints</li>
+                    <li>Touch-friendly controls</li>
+                    <li>Mobile-friendly navigation</li>
+                </ul>
+            </section>
+
+            <section id="mobile-first">
+                <h2><span class="section-number">15</span>Mobile-first design & media queries</h2>
+                <p><strong>Mobile-first</strong> means designing the base layout for small screens first, then
+                    progressively enhancing it for larger ones.</p>
+                <pre><span class="code-label">css</span><code>.card {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .card {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .card {
+        width: 33.33%;
+    }
+}</code></pre>
+
+                <h3>Media query basics</h3>
+                <pre><span class="code-label">css</span><code>@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+}</code></pre>
+                <p>This rule applies once the viewport shrinks to 768px or narrower.</p>
+
+                <h3>Common breakpoint ranges</h3>
+                <div class="tag-row">
+                    <span class="tag-pill">Mobile → below 768px</span>
+                    <span class="tag-pill">Tablet → 768px–1023px</span>
+                    <span class="tag-pill">Desktop → 1024px+</span>
+                </div>
+                <div class="callout">
+                    <strong>Principle:</strong> there's no universal breakpoint set every site must use. Choose
+                    breakpoints based on when <em>your</em> design starts to break, not specific device models.
+                </div>
+
+                <h3>Responsive navigation</h3>
+                <pre><span class="code-label">css</span><code>.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none; /* JavaScript then toggles a mobile menu */
+    }
+}</code></pre>
+            </section>
+
+            <section id="responsive-images">
+                <h2><span class="section-number">16</span>Responsive images & typography</h2>
+                <p>Oversized images cause horizontal scrolling. The standard fix:</p>
+                <pre><span class="code-label">css</span><code>img {
+    max-width: 100%;
+    height: auto;
+}</code></pre>
+                <p>For more control, HTML's <code>srcset</code> and <code>&lt;picture&gt;</code> let the browser pick
+                    an appropriately sized image file per device.</p>
+
+                <h3>Fluid typography</h3>
+                <p>Instead of a fixed size:</p>
+                <pre><span class="code-label">css</span><code>h1 {
+    font-size: 60px; /* too large on small screens */
+}</code></pre>
+                <p>use a range that scales with the viewport:</p>
+                <pre><span class="code-label">css</span><code>h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+}</code></pre>
+            </section>
+
+            <section id="modern-functions">
+                <h2><span class="section-number">17</span><code>clamp()</code>, <code>min()</code>, and
+                    <code>max()</code></h2>
+                <p>These modern CSS functions remove the need for many media queries.</p>
+                <table class="method-table">
+                    <thead>
+                        <tr>
+                            <th>Function</th>
+                            <th>What it does</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>clamp(min, preferred, max)</code></td>
+                            <td>Keeps a value within a range while scaling fluidly in between</td>
+                        </tr>
+                        <tr>
+                            <td><code>min(a, b)</code></td>
+                            <td>Uses whichever value is smaller</td>
+                        </tr>
+                        <tr>
+                            <td><code>max(a, b)</code></td>
+                            <td>Uses whichever value is larger</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pre><span class="code-label">css</span><code>.heading {
+    font-size: clamp(2rem, 6vw, 5rem);
+}
+
+.section {
+    padding: clamp(2rem, 5vw, 6rem);
+}
+
+.container {
+    width: min(90%, 1200px);
+}
+
+.box {
+    padding: max(20px, 3vw);
+}</code></pre>
+
+                <h3>A go-to responsive container</h3>
+                <pre><span class="code-label">css</span><code>.container {
+    width: min(90%, 1200px);
+    margin-inline: auto;
+}</code></pre>
+                <p>This uses 90% of the viewport on small screens, never exceeds 1200px, and centers itself
+                    automatically.</p>
+            </section>
+
+            <section id="transitions">
+                <h2><span class="section-number">18</span>Transitions, transforms & animations</h2>
+                <pre><span class="code-label">css</span><code>button {
+    transition: 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+}</code></pre>
+                <p>Without a transition, style changes happen instantly. Common transforms:</p>
+                <pre><span class="code-label">css</span><code>transform: translateY(-5px);
+transform: scale(1.1);
+transform: rotate(10deg);
+transform: translateX(20px);</code></pre>
+
+                <h3>Keyframe animations</h3>
+                <pre><span class="code-label">css</span><code>@keyframes slide {
+    from {
+        transform: translateX(-100px);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+.box {
+    animation: slide 1s ease;
+}</code></pre>
+                <p>Useful for loading indicators, hero sections, hover effects, and entrance animations — used
+                    carefully, so motion supports the experience rather than distracting from it.</p>
+                <div class="callout">
+                    <strong>Accessibility:</strong> respect users who request reduced motion.
+                </div>
+                <pre><span class="code-label">css</span><code>@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms;
+        transition-duration: 0.01ms;
+        scroll-behavior: auto;
+    }
+}</code></pre>
+            </section>
+
+            <section id="problems">
+                <h2><span class="section-number">19</span>Common responsive problems & fixes</h2>
+
+                <h3>Horizontal scrolling</h3>
+                <p>Usually caused by fixed-width elements, oversized images, long unbroken text, or elements
+                    positioned outside the viewport. Check for elements wider than the viewport with DevTools.</p>
+
+                <h3>Text too large on mobile</h3>
+                <pre><span class="code-label">css</span><code>font-size: clamp(1.5rem, 5vw, 3rem);</code></pre>
+
+                <h3>Cards too narrow or cramped</h3>
+                <pre><span class="code-label">css</span><code>grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));</code></pre>
+
+                <h3>Navigation doesn't fit</h3>
+                <p>Switch to a collapsible mobile menu pattern at the breakpoint where the links start wrapping or
+                    overlapping.</p>
+
+                <h3>Avoid fixed widths and heights</h3>
+                <pre><span class="code-label">css</span><code>/* Risky */
+.container {
+    width: 1200px;
+}
+.card {
+    height: 300px;
+}
+
+/* Safer */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 20px;
+}
+.card {
+    min-height: 300px;
+}</code></pre>
+            </section>
+
+            <section id="best-practices">
+                <h2><span class="section-number">20</span>Responsive design best practices</h2>
+                <ol>
+                    <li><strong>Start mobile-first</strong> — build the base layout small, then enhance upward.</li>
+                    <li><strong>Use flexible units</strong> — favor <code>%</code>, <code>rem</code>, <code>em</code>,
+                        <code>vw</code>, <code>vh</code>, and <code>fr</code> over hardcoded pixels.</li>
+                    <li><strong>Use <code>max-width</code></strong> to stop content from becoming excessively wide.
+                    </li>
+                    <li><strong>Reach for Flexbox and Grid</strong> instead of manual positioning for page layout.
+                    </li>
+                    <li><strong>Make images responsive</strong> with <code>max-width: 100%; height: auto;</code></li>
+                    <li><strong>Test real screen sizes</strong>, not just your own laptop.</li>
+                    <li><strong>Keep touch targets usable</strong> — give buttons and links enough breathing room.
+                    </li>
+                    <li><strong>Design around content</strong>, not a specific phone model.</li>
+                </ol>
+                <div class="callout">
+                    <strong>Accessibility matters too:</strong> readable text sizes, sufficient color contrast,
+                    visible focus states, and controls that don't depend solely on hover are all part of a genuinely
+                    responsive experience.
+                </div>
+            </section>
+
+            <section id="example">
+                <h2><span class="section-number">21</span>A complete responsive example</h2>
+                <p>A hero section that pulls several techniques together:</p>
+                <pre><span class="code-label">html</span><code>&lt;section class="hero"&gt;
+    &lt;div class="hero-content"&gt;
+        &lt;p&gt;WELCOME TO MY PORTFOLIO&lt;/p&gt;
+        &lt;h1&gt;
+            Build Modern
+            &lt;span&gt;Web Experiences&lt;/span&gt;
+        &lt;/h1&gt;
+        &lt;p&gt;
+            I create responsive and interactive websites
+            using modern frontend technologies.
+        &lt;/p&gt;
+        &lt;button&gt;View Projects&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+                <pre><span class="code-label">css</span><code>* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.hero-content {
+    width: min(100%, 900px);
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 7vw, 6rem);
+    line-height: 1;
+}
+
+.hero p {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+}
+
+.container {
+    width: min(90%, 1200px);
+    margin-inline: auto;
+}</code></pre>
+                <p>In a few dozen lines, this covers <code>min-height</code>, Flexbox, <code>min()</code>,
+                    <code>clamp()</code>, viewport units, auto-fit Grid, and a centered responsive container — a
+                    strong foundation for almost any page.</p>
+            </section>
+
+            <section id="roadmap">
+                <h2><span class="section-number">22</span>Learning roadmap & practice projects</h2>
+                <div class="ascii-tree">Phase 1 — Fundamentals
+                    ↓
+                    Syntax, Selectors, Colors, Fonts, Backgrounds, Borders
+                    ↓
+                    Phase 2 — Box Model
+                    ↓
+                    Margin, Padding, Width, Height, box-sizing
+                    ↓
+                    Phase 3 — Layout
+                    ↓
+                    Display, Position, Flexbox, Grid
+                    ↓
+                    Phase 4 — Responsive Design
+                    ↓
+                    Relative Units, Media Queries, Mobile First, Responsive Images
+                    ↓
+                    Phase 5 — Modern CSS
+                    ↓
+                    Variables, clamp(), min(), max(), Advanced Grid & Flexbox
+                    ↓
+                    Phase 6 — Visual Effects
+                    ↓
+                    Transitions, Transforms, Animations, Pseudo-classes
+                    ↓
+                    Phase 7 — Projects</div>
+
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h4>Beginner</h4>
+                        <ul>
+                            <li>Profile card</li>
+                            <li>Login page</li>
+                            <li>Product card</li>
+                            <li>Pricing card</li>
+                            <li>Navigation bar</li>
+                            <li>Simple landing page</li>
+                        </ul>
+                    </div>
+                    <div class="project-card">
+                        <h4>Intermediate</h4>
+                        <ul>
+                            <li>Responsive portfolio</li>
+                            <li>Restaurant website</li>
+                            <li>E-commerce product page</li>
+                            <li>Blog website</li>
+                            <li>Dashboard</li>
+                            <li>Image gallery</li>
+                        </ul>
+                    </div>
+                    <div class="project-card">
+                        <h4>Advanced</h4>
+                        <ul>
+                            <li>Full responsive portfolio</li>
+                            <li>E-commerce website</li>
+                            <li>SaaS landing page</li>
+                            <li>Admin dashboard</li>
+                            <li>Restaurant ordering interface</li>
+                        </ul>
+                    </div>
+                </div>
+                <p>Test every project on mobile, tablet, and desktop widths — not just your own screen.</p>
+            </section>
+
+            <section id="faq">
+                <h2><span class="section-number">23</span>Interview questions to be ready for</h2>
+
+                <h3>Basic</h3>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">1.</span> What is CSS, and what does the
+                        acronym stand for?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">2.</span> What are the different ways to apply
+                        CSS to a page?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">3.</span> What is the difference between a
+                        class and an ID selector?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">4.</span> What is the CSS box model?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">5.</span> What is the difference between
+                        margin and padding?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">6.</span> What does <code>box-sizing:
+                            border-box</code> change?</div>
+                </div>
+
+                <h3>Intermediate</h3>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">7.</span> What is Flexbox, and what problem
+                        does it solve?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">8.</span> What is CSS Grid, and how does it
+                        differ from Flexbox?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">9.</span> What's the difference between
+                        <code>position: relative</code> and <code>position: absolute</code>?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">10.</span> What are CSS variables, and why use
+                        them?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">11.</span> What's the difference between a
+                        transition and an animation?</div>
+                </div>
+
+                <h3>Responsive design</h3>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">12.</span> What is responsive web design, and
+                        what is mobile-first design?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">13.</span> What are media queries, and how do
+                        you choose breakpoints?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">14.</span> What's the difference between
+                        <code>px</code>, <code>%</code>, <code>rem</code>, <code>em</code>, <code>vw</code>, and
+                        <code>vh</code>?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">15.</span> How do you make an image
+                        responsive?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">16.</span> What does <code>clamp()</code> do,
+                        and how does it differ from <code>min()</code> and <code>max()</code>?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">17.</span> How do you prevent unwanted
+                        horizontal scrolling on mobile?</div>
+                </div>
+            </section>
+
+            <section id="conclusion">
+                <h2><span class="section-number">24</span>Conclusion</h2>
+                <div class="conclusion-box">
+                    <p>
+                        CSS is far more than changing colors and fonts — it's the foundation of every modern
+                        web interface, and <strong>responsive design</strong> is what makes that interface
+                        work everywhere it's viewed.
+                    </p>
+                    <p>The core concept map to keep in mind:</p>
+                    <div class="conclusion-flow">Selectors → Box Model → Layout → Units → Media Queries → Responsive
+                    </div>
+                    <pre><span class="code-label">css</span><code>.container {
+    width: min(90%, 1200px);
+    margin-inline: auto;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+}
+
+h1 {
+    font-size: clamp(2rem, 5vw, 4rem);
+}</code></pre>
+                    <p>
+                        That short snippet captures the modern responsive mindset in miniature: a centered,
+                        capped-width container, an auto-adjusting Grid, and fluid typography — all without a
+                        single media query. Once selectors, the box model, Flexbox, Grid, and fluid units
+                        feel natural, you'll have a solid foundation for building layouts that hold up on any
+                        screen — and for combining CSS with <strong>HTML + JavaScript DOM manipulation</strong>
+                        to build complete, interactive frontend projects.
+                    </p>
+                    <p style="margin-top:1rem;">
+                        <strong>Don't design for a particular device. Design a flexible layout that adapts to
+                            the user's screen.</strong>
+                    </p>
+                </div>
+                <a class="back-to-top" href="#intro">↑ Back to top</a>
+            </section>
+
+        </article>
+
+        <footer class="article-footer">
+            Written &amp; coded with <span class="heart">♥</span> by Surya
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

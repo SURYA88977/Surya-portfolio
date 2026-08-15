@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript DOM: A Complete Guide to the Document Object Model</title>
+    <style>
+        :root {
+            --bg: #0c0c0c;
+            --surface: #161616;
+            --surface-alt: #141414;
+            --border: #2b2b2b;
+            --text: #f4f2ec;
+            --text-muted: #96938c;
+            --accent: #e8501f;
+            --code-bg: #111111;
+            --code-text: #e8e6df;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        /* ---------- Layout ---------- */
+
+        .page-wrapper {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 0 1.5rem 5rem;
+        }
+
+        /* ---------- Top bar / Home button ---------- */
+
+        .top-bar {
+            padding-top: 1.5rem;
+        }
+
+        .home-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .home-button:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            text-decoration: none;
+        }
+
+        .home-button svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        .article-header {
+            padding: 2.5rem 0 2.5rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 2.5rem;
+        }
+
+        .article-eyebrow {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            text-transform: uppercase;
+            border: 1px solid var(--accent);
+            padding: 0.3rem 0.7rem;
+            border-radius: 3px;
+            margin-bottom: 1.2rem;
+        }
+
+        .article-title {
+            font-size: clamp(1.85rem, 6vw, 2.8rem);
+            line-height: 1.15;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            margin: 0 0 1rem;
+        }
+
+        .article-subtitle {
+            color: var(--text-muted);
+            font-size: clamp(0.95rem, 2.4vw, 1.1rem);
+            max-width: 60ch;
+            margin: 0 0 1.5rem;
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .article-meta-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            display: inline-block;
+        }
+
+        /* ---------- Table of contents ---------- */
+
+        .toc {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 3rem;
+        }
+
+        .toc-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .toc-list {
+            columns: 2;
+            column-gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 0.9rem;
+        }
+
+        .toc-list li {
+            break-inside: avoid;
+            margin-bottom: 0.55rem;
+        }
+
+        .toc-list a {
+            color: var(--text-muted);
+        }
+
+        .toc-list a:hover {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* ---------- Article body ---------- */
+
+        article section {
+            margin-bottom: 3rem;
+        }
+
+        article h2 {
+            font-size: clamp(1.25rem, 4vw, 1.55rem);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin: 0 0 1rem;
+            padding-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        article h2 .section-number {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fff;
+            background: var(--accent);
+            width: 1.9rem;
+            height: 1.9rem;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        article h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 1.8rem 0 0.7rem;
+            color: var(--text);
+        }
+
+        article p {
+            margin: 0 0 1rem;
+            color: #d8d5cc;
+        }
+
+        article ul,
+        article ol {
+            margin: 0 0 1.2rem;
+            padding-left: 1.4rem;
+            color: #d8d5cc;
+        }
+
+        article li {
+            margin-bottom: 0.4rem;
+        }
+
+        strong {
+            color: var(--text);
+        }
+
+        code {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: var(--code-bg);
+            color: var(--accent);
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.88em;
+            border: 1px solid var(--border);
+            word-break: break-word;
+        }
+
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.1rem 1.3rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0 0 1.3rem;
+            position: relative;
+        }
+
+        pre code {
+            background: none;
+            border: none;
+            color: var(--code-text);
+            padding: 0;
+            font-size: 0.86rem;
+            line-height: 1.6;
+            white-space: pre;
+            word-break: normal;
+        }
+
+        .code-label {
+            position: absolute;
+            top: 0.6rem;
+            right: 0.9rem;
+            font-size: 0.65rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .callout {
+            background: var(--surface-alt);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px;
+            padding: 1rem 1.3rem;
+            margin: 0 0 1.2rem;
+            color: #d8d5cc;
+            font-size: 0.95rem;
+        }
+
+        .callout strong {
+            color: var(--accent);
+        }
+
+        .ascii-tree {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.1rem 1.3rem;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: var(--code-text);
+            line-height: 1.6;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 1.3rem;
+            white-space: pre;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-bottom: 1.3rem;
+        }
+
+        .two-col-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.2rem 1.3rem;
+        }
+
+        .two-col-card h4 {
+            margin: 0 0 0.7rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .two-col-card p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Tables get a horizontal-scroll wrapper on narrow screens */
+        .table-scroll {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 1.3rem;
+        }
+
+        .method-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+
+        .table-scroll .method-table {
+            margin-bottom: 0;
+        }
+
+        .method-table th,
+        .method-table td {
+            border: 1px solid var(--border);
+            padding: 0.65rem 0.9rem;
+            text-align: left;
+        }
+
+        .method-table th {
+            background: var(--surface);
+            color: var(--accent);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+        }
+
+        .method-table td {
+            color: #d8d5cc;
+        }
+
+        .method-table code {
+            border: none;
+            background: transparent;
+            padding: 0;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.3rem;
+        }
+
+        .tag-pill {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.78rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.35rem 0.7rem;
+            border-radius: 20px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.3rem;
+        }
+
+        .project-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.1rem 1.2rem;
+        }
+
+        .project-card h4 {
+            margin: 0 0 0.6rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .project-card ul {
+            margin: 0;
+            padding-left: 1.1rem;
+            font-size: 0.88rem;
+        }
+
+        .project-card li {
+            margin-bottom: 0.3rem;
+        }
+
+        hr.divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2.5rem 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .faq-number {
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .faq-answer-hint {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .back-to-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+        }
+
+        .back-to-top:hover {
+            color: var(--accent);
+        }
+
+        .conclusion-box {
+            background: linear-gradient(135deg, rgba(232, 80, 31, 0.12), rgba(232, 80, 31, 0.02));
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 1rem;
+        }
+
+        .conclusion-flow {
+            font-family: 'Consolas', 'Monaco', monospace;
+            text-align: center;
+            color: var(--accent);
+            font-size: 0.95rem;
+            line-height: 2.1;
+            margin: 1.2rem 0;
+        }
+
+        footer.article-footer {
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+            padding-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        footer.article-footer .heart {
+            color: var(--accent);
+        }
+
+        /* ---------- Responsive: tablets and below ---------- */
+        @media (max-width: 768px) {
+            .page-wrapper {
+                padding: 0 1.25rem 4rem;
+            }
+
+            .toc-list {
+                columns: 1;
+            }
+
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+
+            .project-grid {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            }
+        }
+
+        /* ---------- Responsive: phones ---------- */
+        @media (max-width: 620px) {
+            .page-wrapper {
+                padding: 0 1rem 3.5rem;
+            }
+
+            .top-bar {
+                padding-top: 1rem;
+            }
+
+            .article-header {
+                padding: 1.75rem 0 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .toc {
+                padding: 1.25rem 1.25rem;
+                margin-bottom: 2rem;
+            }
+
+            article section {
+                margin-bottom: 2.25rem;
+            }
+
+            article h2 {
+                gap: 0.55rem;
+            }
+
+            article h2 .section-number {
+                width: 1.6rem;
+                height: 1.6rem;
+                font-size: 0.75rem;
+            }
+
+            pre {
+                padding: 0.9rem 1rem;
+                border-radius: 5px;
+            }
+
+            pre code {
+                font-size: 0.78rem;
+            }
+
+            .ascii-tree {
+                padding: 0.9rem 1rem;
+                font-size: 0.76rem;
+            }
+
+            .method-table {
+                font-size: 0.82rem;
+            }
+
+            .method-table th,
+            .method-table td {
+                padding: 0.55rem 0.7rem;
+            }
+
+            .tag-pill {
+                font-size: 0.73rem;
+                padding: 0.3rem 0.6rem;
+            }
+
+            .conclusion-box {
+                padding: 1.4rem;
+            }
+
+            .conclusion-flow {
+                font-size: 0.82rem;
+                line-height: 1.9;
+            }
+
+            .faq-question {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ---------- Responsive: small phones ---------- */
+        @media (max-width: 400px) {
+            .article-title {
+                font-size: 1.65rem;
+            }
+
+            .article-eyebrow {
+                font-size: 0.68rem;
+                padding: 0.25rem 0.55rem;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .home-button {
+                font-size: 0.8rem;
+                padding: 0.45rem 0.85rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+
+        <div class="top-bar">
+            <a class="home-button" href="./index.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M3 11.5 12 4l9 7.5" />
+                    <path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9" />
+                </svg>
+                Home
+            </a>
+        </div>
+
+        <header class="article-header">
+            <span class="article-eyebrow">JavaScript · Web Development</span>
+            <h1 class="article-title">JavaScript DOM: A Complete Guide to the Document Object Model</h1>
+            <p class="article-subtitle">
+                Everything you need to know about how JavaScript talks to HTML — from selecting
+                elements to handling events, traversing the tree, and building real interactive projects.
+            </p>
+            <div class="article-meta">
+                <span>By Surya</span>
+                <span class="article-meta-dot"></span>
+                <span>Web Development</span>
+                <span class="article-meta-dot"></span>
+                <span>18 min read</span>
+            </div>
+        </header>
+
+        <nav class="toc" aria-label="Table of contents">
+            <div class="toc-title">In this guide</div>
+            <ul class="toc-list">
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#what-is-dom">1. What is the DOM?</a></li>
+                <li><a href="#why-important">2. Why the DOM matters</a></li>
+                <li><a href="#document-object">3. The document object</a></li>
+                <li><a href="#dom-nodes">4. DOM nodes</a></li>
+                <li><a href="#selecting">5–9. Selecting elements</a></li>
+                <li><a href="#content">10–11. Changing content</a></li>
+                <li><a href="#css">12–15. Styling with JS</a></li>
+                <li><a href="#attributes">16. Working with attributes</a></li>
+                <li><a href="#create-remove">17–20. Create & remove elements</a></li>
+                <li><a href="#events">21–26. DOM events</a></li>
+                <li><a href="#traversal">27–31. DOM traversal</a></li>
+                <li><a href="#bubbling">32–33. Bubbling & delegation</a></li>
+                <li><a href="#dcl">34. DOMContentLoaded</a></li>
+                <li><a href="#examples">35–39. Practical examples</a></li>
+                <li><a href="#dom-vs-bom">40. DOM vs BOM</a></li>
+                <li><a href="#cheatsheet">41–42. Methods & properties cheat sheet</a></li>
+                <li><a href="#mistakes">43–44. Mistakes & best practices</a></li>
+                <li><a href="#real-app">45. A real application flow</a></li>
+                <li><a href="#roadmap">46–47. Roadmap & projects</a></li>
+                <li><a href="#faq">48. Interview questions</a></li>
+                <li><a href="#conclusion">Conclusion</a></li>
+            </ul>
+        </nav>
+
+        <article>
+
+            <section id="intro">
+                <p>
+                    JavaScript is one of the most important technologies used to make websites interactive.
+                    HTML provides the structure of a webpage, CSS controls its appearance, and JavaScript
+                    adds behavior and functionality.
+                </p>
+                <p>
+                    But how does JavaScript actually change the content, style, buttons, forms, images, and
+                    other elements on a webpage? The answer is the <strong>DOM — Document Object Model</strong>.
+                </p>
+                <p>
+                    The DOM is the bridge between JavaScript and the HTML/CSS that make up a page. Using it,
+                    JavaScript can find elements, change their content, modify their styles, create new
+                    elements, remove existing ones, and respond to user actions such as clicks, typing,
+                    mouse movement, and keyboard input.
+                </p>
+                <p>This guide walks through the DOM from the fundamentals to more advanced, practical patterns.</p>
+            </section>
+
+            <section id="what-is-dom">
+                <h2><span class="section-number">01</span>What is the DOM?</h2>
+                <p><strong>DOM stands for Document Object Model.</strong></p>
+                <p>
+                    When a browser loads an HTML document, it converts the HTML code into a structured
+                    object called the <strong>DOM tree</strong>. Take this simple page:
+                </p>
+                <pre><span class="code-label">html</span><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My Website&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;h1&gt;Hello World&lt;/h1&gt;
+    &lt;p&gt;Welcome to my website.&lt;/p&gt;
+
+    &lt;button&gt;Click Me&lt;/button&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                <p>The browser turns this into a tree-like structure of nodes:</p>
+                <div class="ascii-tree">Document
+                    │
+                    └── html
+                    │
+                    ├── head
+                    │ └── title
+                    │
+                    └── body
+                    │
+                    ├── h1
+                    │
+                    ├── p
+                    │
+                    └── button</div>
+                <p>Every HTML element becomes an <strong>object/node</strong> that JavaScript can reach and manipulate.
+                </p>
+            </section>
+
+            <section id="why-important">
+                <h2><span class="section-number">02</span>Why is the DOM important?</h2>
+                <p>Without the DOM, JavaScript would have no reliable way to interact with the elements on a page. With
+                    it, you can:</p>
+                <div class="two-col">
+                    <div class="two-col-card">
+                        <h4>Content & structure</h4>
+                        <p>Change HTML content, create new elements, delete elements, and change attributes.</p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>Style & appearance</h4>
+                        <p>Change CSS styles and add or remove classes to switch visual states.</p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>Interaction</h4>
+                        <p>Handle clicks, keyboard input, mouse events, and validate forms.</p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>Applications</h4>
+                        <p>Build interactive interfaces and full dynamic web applications.</p>
+                    </div>
+                </div>
+                <p>A simple example — changing a heading's text:</p>
+                <pre><span class="code-label">js</span><code>document.querySelector("h1").textContent = "Welcome Surya!";</code></pre>
+            </section>
+
+            <section id="document-object">
+                <h2><span class="section-number">03</span>The <code>document</code> object</h2>
+                <p>The main entry point for DOM manipulation is the <code>document</code> object — it represents the
+                    entire HTML document currently loaded in the browser.</p>
+                <pre><span class="code-label">js</span><code>console.log(document);</code></pre>
+                <p>You can read page details from it:</p>
+                <pre><span class="code-label">js</span><code>console.log(document.title);</code></pre>
+                <p>...and even change them, which updates the browser tab title immediately:</p>
+                <pre><span class="code-label">js</span><code>document.title = "My New Website";</code></pre>
+            </section>
+
+            <section id="dom-nodes">
+                <h2><span class="section-number">04</span>DOM nodes</h2>
+                <p>Everything in the DOM is represented as a node. The common types are:</p>
+                <div class="two-col">
+                    <div class="two-col-card">
+                        <h4>Document node</h4>
+                        <p>Represents the entire HTML document: <code>document</code></p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>Element node</h4>
+                        <p>Represents an HTML element, e.g. <code>&lt;h1&gt;Hello&lt;/h1&gt;</code></p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>Text node</h4>
+                        <p>The text inside an element — in <code>&lt;p&gt;Hello World&lt;/p&gt;</code>, "Hello World" is
+                            a text node.</p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>Attribute</h4>
+                        <p>Info attached to an element, like <code>src</code> and <code>alt</code> in
+                            <code>&lt;img src="photo.jpg" alt="Profile"&gt;</code></p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="selecting">
+                <h2><span class="section-number">05</span>Selecting HTML elements</h2>
+                <p>Before modifying an element, JavaScript usually needs to find it first. There are several selection
+                    methods, each with its own use case.</p>
+
+                <h3><code>getElementById()</code></h3>
+                <p>Selects a single element by its <code>id</code>. Note: you don't include <code>#</code> here.</p>
+                <pre><span class="code-label">html</span><code>&lt;h1 id="title"&gt;Hello World&lt;/h1&gt;</code></pre>
+                <pre><span class="code-label">js</span><code>const title = document.getElementById("title");
+console.log(title);</code></pre>
+
+                <h3><code>getElementsByClassName()</code></h3>
+                <p>Selects elements by class name and returns an <strong>HTMLCollection</strong>.</p>
+                <pre><span class="code-label">html</span><code>&lt;p class="text"&gt;Hello&lt;/p&gt;
+&lt;p class="text"&gt;Welcome&lt;/p&gt;</code></pre>
+                <pre><span class="code-label">js</span><code>const elements = document.getElementsByClassName("text");
+console.log(elements[0]); // access by index</code></pre>
+
+                <h3><code>getElementsByTagName()</code></h3>
+                <p>Selects elements based on their HTML tag.</p>
+                <pre><span class="code-label">js</span><code>const paragraphs = document.getElementsByTagName("p");
+console.log(paragraphs);</code></pre>
+
+                <h3><code>querySelector()</code></h3>
+                <p>One of the most commonly used DOM methods — it accepts standard CSS selectors and returns only the
+                    <strong>first matching element</strong>.</p>
+                <pre><span class="code-label">js</span><code>const title = document.querySelector("#title");
+const box = document.querySelector(".box");
+const paragraph = document.querySelector("p");
+const button = document.querySelector(".container button");</code></pre>
+
+                <h3><code>querySelectorAll()</code></h3>
+                <p>Returns <strong>all</strong> matching elements, which you can loop through directly with
+                    <code>forEach</code>.</p>
+                <pre><span class="code-label">js</span><code>const paragraphs = document.querySelectorAll("p");
+
+paragraphs.forEach(function(paragraph) {
+    console.log(paragraph.textContent);
+});</code></pre>
+            </section>
+
+            <section id="content">
+                <h2><span class="section-number">06</span>Changing HTML content</h2>
+                <p>Once an element is selected, JavaScript can change what's inside it.</p>
+                <pre><span class="code-label">html</span><code>&lt;h1 id="title"&gt;Hello&lt;/h1&gt;</code></pre>
+                <pre><span class="code-label">js</span><code>const title = document.getElementById("title");
+title.textContent = "Hello Surya";</code></pre>
+                <p>The page now displays: <code>Hello Surya</code></p>
+
+                <h3><code>textContent</code> vs <code>innerHTML</code></h3>
+                <div class="two-col">
+                    <div class="two-col-card">
+                        <h4>textContent</h4>
+                        <p>Treats the assigned value as plain text. Assigning
+                            <code>"&lt;strong&gt;Hello&lt;/strong&gt;"</code> literally shows the tags on screen instead
+                            of rendering bold text.</p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>innerHTML</h4>
+                        <p>Parses and inserts actual HTML — the same string would render "Hello" in bold, and can insert
+                            multiple elements at once.</p>
+                    </div>
+                </div>
+                <pre><span class="code-label">js</span><code>element.innerHTML = `
+    &lt;h2&gt;Welcome&lt;/h2&gt;
+    &lt;p&gt;This is a paragraph.&lt;/p&gt;
+`;</code></pre>
+                <div class="callout">
+                    <strong>Security note:</strong> be careful when inserting user-controlled data with
+                    <code>innerHTML</code> — unsanitized HTML can introduce XSS vulnerabilities. For plain
+                    text, <code>textContent</code> is generally the safer choice.
+                </div>
+            </section>
+
+            <section id="css">
+                <h2><span class="section-number">07</span>Styling with JavaScript</h2>
+                <p>JavaScript can modify CSS directly through an element's <code>style</code> property.</p>
+                <pre><span class="code-label">js</span><code>const title = document.querySelector("#title");
+
+title.style.color = "red";
+title.style.fontSize = "40px";
+title.style.backgroundColor = "black";</code></pre>
+
+                <h3>CSS property naming in JavaScript</h3>
+                <p>CSS uses kebab-case; JavaScript expects camelCase for the same properties:</p>
+                <div class="two-col">
+                    <div class="two-col-card">
+                        <h4>CSS</h4>
+                        <p><code>background-color</code><br><code>font-size</code><br><code>margin-top</code></p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>JavaScript</h4>
+                        <p><code>backgroundColor</code><br><code>fontSize</code><br><code>marginTop</code></p>
+                    </div>
+                </div>
+
+                <h3>Changing classes instead</h3>
+                <p>Rather than setting individual styles repeatedly, it's usually cleaner to toggle a CSS class.</p>
+                <pre><span class="code-label">js</span><code>const box = document.querySelector("#box");
+box.classList.add("active");</code></pre>
+
+                <h3><code>classList</code> methods</h3>
+                <div class="table-scroll">
+                    <table class="method-table">
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>What it does</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>add()</code></td>
+                                <td>Adds a class</td>
+                            </tr>
+                            <tr>
+                                <td><code>remove()</code></td>
+                                <td>Removes a class</td>
+                            </tr>
+                            <tr>
+                                <td><code>toggle()</code></td>
+                                <td>Adds it if missing, removes it if present</td>
+                            </tr>
+                            <tr>
+                                <td><code>contains()</code></td>
+                                <td>Checks whether the class exists</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="attributes">
+                <h2><span class="section-number">08</span>Working with attributes</h2>
+                <p>HTML elements carry attributes, such as <code>src</code> and <code>alt</code> in
+                    <code>&lt;img src="image.jpg" alt="Profile"&gt;</code>. JavaScript can read and modify them
+                    directly.</p>
+                <pre><span class="code-label">js</span><code>const image = document.querySelector("img");
+
+// Read
+console.log(image.getAttribute("src"));
+
+// Write
+image.setAttribute("src", "new-image.jpg");
+
+// Remove
+image.removeAttribute("alt");</code></pre>
+            </section>
+
+            <section id="create-remove">
+                <h2><span class="section-number">09</span>Creating and removing elements</h2>
+                <p>JavaScript can build brand new elements with <code>document.createElement()</code>:</p>
+                <pre><span class="code-label">js</span><code>const paragraph = document.createElement("p");
+paragraph.textContent = "This paragraph was created using JavaScript.";</code></pre>
+                <p>At this point the element exists only in memory — it isn't visible yet. To place it on the page, use
+                    <code>append()</code> or <code>appendChild()</code>:</p>
+                <pre><span class="code-label">js</span><code>const container = document.querySelector(".container");
+container.append(paragraph);
+// or
+container.appendChild(paragraph);</code></pre>
+
+                <h3><code>append()</code> vs <code>appendChild()</code></h3>
+                <div class="two-col">
+                    <div class="two-col-card">
+                        <h4>append()</h4>
+                        <p>Can insert multiple nodes and plain strings at once — e.g.
+                            <code>container.append("Hello", paragraph)</code>. Usually more convenient in modern code.
+                        </p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>appendChild()</h4>
+                        <p>Accepts a single node only, but is supported in older environments.</p>
+                    </div>
+                </div>
+
+                <h3>Removing elements</h3>
+                <pre><span class="code-label">js</span><code>const paragraph = document.querySelector("p");
+paragraph.remove();</code></pre>
+            </section>
+
+            <section id="events">
+                <h2><span class="section-number">10</span>DOM events</h2>
+                <p>Events are one of the most important parts of DOM work. An event fires whenever something happens on
+                    the page — a click, a keystroke, a form submission, mouse movement, and so on.</p>
+
+                <h3><code>addEventListener()</code></h3>
+                <p>The recommended way to listen for any event:</p>
+                <pre><span class="code-label">html</span><code>&lt;button id="btn"&gt;Click Me&lt;/button&gt;</code></pre>
+                <pre><span class="code-label">js</span><code>const button = document.querySelector("#btn");
+
+button.addEventListener("click", function() {
+    console.log("Button clicked!");
+});</code></pre>
+
+                <h3>Common events</h3>
+                <div class="table-scroll">
+                    <table class="method-table">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Fires when</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>click</code></td>
+                                <td>An element is clicked</td>
+                            </tr>
+                            <tr>
+                                <td><code>mouseover</code></td>
+                                <td>The pointer enters an element</td>
+                            </tr>
+                            <tr>
+                                <td><code>mouseout</code></td>
+                                <td>The pointer leaves an element</td>
+                            </tr>
+                            <tr>
+                                <td><code>input</code></td>
+                                <td>A text field's value changes as you type</td>
+                            </tr>
+                            <tr>
+                                <td><code>change</code></td>
+                                <td>A form control's value changes (e.g. select)</td>
+                            </tr>
+                            <tr>
+                                <td><code>submit</code></td>
+                                <td>A form is submitted</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>The event object</h3>
+                <p>Every handler receives an <strong>event object</strong> describing what happened, including
+                    <code>event.target</code> (the element that triggered it) and <code>event.type</code>.</p>
+                <pre><span class="code-label">js</span><code>button.addEventListener("click", function(event) {
+    console.log(event.target);
+});</code></pre>
+
+                <h3>Keyboard events</h3>
+                <pre><span class="code-label">js</span><code>document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+        console.log("Enter pressed");
+    }
+
+});</code></pre>
+
+                <h3>Form handling</h3>
+                <pre><span class="code-label">html</span><code>&lt;form id="loginForm"&gt;
+    &lt;input id="username" type="text"&gt;
+    &lt;button type="submit"&gt;Login&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                <pre><span class="code-label">js</span><code>const form = document.querySelector("#loginForm");
+
+form.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const username = document.querySelector("#username").value;
+    console.log(username);
+
+});</code></pre>
+                <p><code>preventDefault()</code> stops the browser's default form submission so JavaScript can validate
+                    or process the data first.</p>
+            </section>
+
+            <section id="traversal">
+                <h2><span class="section-number">11</span>DOM traversal</h2>
+                <p>Traversal means moving between related elements in the DOM tree using properties like:</p>
+                <div class="tag-row">
+                    <span class="tag-pill">parentElement</span>
+                    <span class="tag-pill">children</span>
+                    <span class="tag-pill">firstElementChild</span>
+                    <span class="tag-pill">lastElementChild</span>
+                    <span class="tag-pill">nextElementSibling</span>
+                    <span class="tag-pill">previousElementSibling</span>
+                </div>
+                <pre><span class="code-label">js</span><code>const item = document.querySelector(".item");
+console.log(item.parentElement); // gets the parent</code></pre>
+                <p>Given three sibling paragraphs, you can step from one to the next or previous:</p>
+                <pre><span class="code-label">html</span><code>&lt;p id="one"&gt;One&lt;/p&gt;
+&lt;p id="two"&gt;Two&lt;/p&gt;
+&lt;p id="three"&gt;Three&lt;/p&gt;</code></pre>
+                <pre><span class="code-label">js</span><code>const first = document.querySelector("#one");
+console.log(first.nextElementSibling); // selects "Two"
+
+const third = document.querySelector("#three");
+console.log(third.previousElementSibling); // selects "Two"</code></pre>
+            </section>
+
+            <section id="bubbling">
+                <h2><span class="section-number">12</span>Event bubbling and delegation</h2>
+                <p>When you click a nested element, the event fires on that element first, then <strong>bubbles
+                        upward</strong> through each ancestor:</p>
+                <div class="ascii-tree">button
+                    ↑
+                    div
+                    ↑
+                    body
+                    ↑
+                    html
+                    ↑
+                    document</div>
+                <pre><span class="code-label">js</span><code>const parent = document.querySelector("#parent");
+const child = document.querySelector("#child");
+
+parent.addEventListener("click", function() {
+    console.log("Parent clicked");
+});
+
+child.addEventListener("click", function() {
+    console.log("Button clicked");
+});
+
+// Clicking the button logs:
+// Button clicked
+// Parent clicked</code></pre>
+
+                <h3>Event delegation</h3>
+                <p>Delegation uses bubbling to handle many elements with a single listener on their shared parent —
+                    especially useful for elements created dynamically.</p>
+                <pre><span class="code-label">js</span><code>const list = document.querySelector("#list");
+
+list.addEventListener("click", function(event) {
+
+    if (event.target.matches("li")) {
+        console.log("List item clicked");
+    }
+
+});</code></pre>
+            </section>
+
+            <section id="dcl">
+                <h2><span class="section-number">13</span><code>DOMContentLoaded</code></h2>
+                <p>A script can run before the HTML elements it needs actually exist. Waiting for
+                    <code>DOMContentLoaded</code> guarantees the document is fully parsed first — handy when a script
+                    sits in <code>&lt;head&gt;</code>.</p>
+                <pre><span class="code-label">js</span><code>document.addEventListener("DOMContentLoaded", function() {
+    console.log("DOM loaded");
+});</code></pre>
+            </section>
+
+            <section id="examples">
+                <h2><span class="section-number">14</span>Practical examples</h2>
+
+                <h3>Dynamic task list</h3>
+                <pre><span class="code-label">html</span><code>&lt;input id="taskInput" type="text"&gt;
+&lt;button id="addBtn"&gt;Add Task&lt;/button&gt;
+&lt;ul id="taskList"&gt;&lt;/ul&gt;</code></pre>
+                <pre><span class="code-label">js</span><code>const input = document.querySelector("#taskInput");
+const button = document.querySelector("#addBtn");
+const list = document.querySelector("#taskList");
+
+button.addEventListener("click", function() {
+
+    const task = document.createElement("li");
+    task.textContent = input.value;
+    list.append(task);
+    input.value = "";
+
+});</code></pre>
+                <p>This one pattern — select, create, append — is the foundation of todo apps, shopping carts, comment
+                    sections, dynamic menus, and dashboards.</p>
+
+                <h3>Dark mode toggle</h3>
+                <p>Let CSS own the design and JavaScript own the behavior:</p>
+                <pre><span class="code-label">css</span><code>.dark {
+    background-color: #111;
+    color: white;
+}</code></pre>
+                <pre><span class="code-label">js</span><code>const button = document.querySelector("#themeBtn");
+
+button.addEventListener("click", function() {
+    document.body.classList.toggle("dark");
+});</code></pre>
+
+                <h3>Counter</h3>
+                <pre><span class="code-label">js</span><code>let count = 0;
+
+const display = document.querySelector("#count");
+const increase = document.querySelector("#increase");
+const decrease = document.querySelector("#decrease");
+
+increase.addEventListener("click", function() {
+    count++;
+    display.textContent = count;
+});
+
+decrease.addEventListener("click", function() {
+    count--;
+    display.textContent = count;
+});</code></pre>
+                <p>Here JavaScript stores state in <code>count</code>, listens for clicks, updates the value, then
+                    reflects the change on screen with <code>textContent</code>.</p>
+
+                <h3>Show / hide password</h3>
+                <pre><span class="code-label">js</span><code>const password = document.querySelector("#password");
+const toggle = document.querySelector("#toggle");
+
+toggle.addEventListener("click", function() {
+
+    if (password.type === "password") {
+        password.type = "text";
+        toggle.textContent = "Hide Password";
+    } else {
+        password.type = "password";
+        toggle.textContent = "Show Password";
+    }
+
+});</code></pre>
+                <p>This shows how JavaScript can manipulate both attributes (<code>type</code>) and text content in the
+                    same handler.</p>
+            </section>
+
+            <section id="dom-vs-bom">
+                <h2><span class="section-number">15</span>DOM vs BOM</h2>
+                <p>A common interview question — and the distinction is straightforward:</p>
+                <div class="two-col">
+                    <div class="two-col-card">
+                        <h4>DOM — Document Object Model</h4>
+                        <p>Represents the webpage itself: <code>document.querySelector()</code>,
+                            <code>document.createElement()</code>, <code>document.getElementById()</code></p>
+                    </div>
+                    <div class="two-col-card">
+                        <h4>BOM — Browser Object Model</h4>
+                        <p>Represents the browser around the page: <code>window</code>, <code>location</code>,
+                            <code>history</code>, <code>navigator</code>, <code>screen</code></p>
+                    </div>
+                </div>
+                <pre><span class="code-label">js</span><code>console.log(window.innerWidth); // viewport width, via the BOM</code></pre>
+            </section>
+
+            <section id="cheatsheet">
+                <h2><span class="section-number">16</span>Cheat sheet: methods & properties</h2>
+                <h3>Methods worth memorizing</h3>
+                <div class="tag-row">
+                    <span class="tag-pill">document.getElementById()</span>
+                    <span class="tag-pill">document.getElementsByClassName()</span>
+                    <span class="tag-pill">document.getElementsByTagName()</span>
+                    <span class="tag-pill">document.querySelector()</span>
+                    <span class="tag-pill">document.querySelectorAll()</span>
+                    <span class="tag-pill">document.createElement()</span>
+                    <span class="tag-pill">element.append()</span>
+                    <span class="tag-pill">element.appendChild()</span>
+                    <span class="tag-pill">element.remove()</span>
+                    <span class="tag-pill">classList.add() / remove() / toggle() / contains()</span>
+                    <span class="tag-pill">getAttribute() / setAttribute() / removeAttribute()</span>
+                    <span class="tag-pill">addEventListener()</span>
+                </div>
+
+                <h3>Properties worth memorizing</h3>
+                <div class="tag-row">
+                    <span class="tag-pill">textContent</span>
+                    <span class="tag-pill">innerHTML</span>
+                    <span class="tag-pill">innerText</span>
+                    <span class="tag-pill">value</span>
+                    <span class="tag-pill">style</span>
+                    <span class="tag-pill">classList</span>
+                    <span class="tag-pill">parentElement</span>
+                    <span class="tag-pill">children</span>
+                    <span class="tag-pill">firstElementChild</span>
+                    <span class="tag-pill">lastElementChild</span>
+                    <span class="tag-pill">nextElementSibling</span>
+                    <span class="tag-pill">previousElementSibling</span>
+                </div>
+            </section>
+
+            <section id="mistakes">
+                <h2><span class="section-number">17</span>Common mistakes & best practices</h2>
+
+                <h3>Mistake: selecting something that doesn't exist</h3>
+                <pre><span class="code-label">js</span><code>const button = document.querySelector("#wrongId");
+
+// button is null here — calling .addEventListener on it throws an error
+button.addEventListener("click", function() {
+    console.log("Clicked");
+});</code></pre>
+
+                <h3>Mistake: forgetting <code>.</code> or <code>#</code></h3>
+                <pre><span class="code-label">js</span><code>document.querySelector("box");   // looks for a &lt;box&gt; tag
+document.querySelector(".box");  // looks for class="box"
+document.querySelector("#box");  // looks for id="box"</code></pre>
+
+                <h3>Mistake: running JavaScript before the DOM exists</h3>
+                <p>If a script runs before the elements it needs exist, selection silently fails. Fix it by placing the
+                    script tag right before <code>&lt;/body&gt;</code>, or wrapping the code in
+                    <code>DOMContentLoaded</code>.</p>
+
+                <h3>Best practices</h3>
+                <ol>
+                    <li>Prefer <code>querySelector()</code> / <code>querySelectorAll()</code> for their consistent
+                        CSS-selector syntax.</li>
+                    <li>Use <code>classList</code> to toggle CSS states instead of hand-editing <code>className</code>.
+                    </li>
+                    <li>Prefer <code>textContent</code> over <code>innerHTML</code> when you only need plain text.</li>
+                    <li>Use <code>addEventListener()</code> rather than inline <code>onclick="..."</code> attributes.
+                    </li>
+                    <li>Avoid unnecessary DOM operations — updates can be relatively expensive, so batch changes where
+                        practical.</li>
+                </ol>
+            </section>
+
+            <section id="real-app">
+                <h2><span class="section-number">18</span>How the DOM works in a real application</h2>
+                <p>Picture a shopping cart. The user clicks <strong>Add to Cart</strong>, and a chain of DOM-driven
+                    steps follows:</p>
+                <div class="ascii-tree">User clicks button
+                    ↓
+                    Event listener executes
+                    ↓
+                    Product information is read
+                    ↓
+                    Cart state is updated
+                    ↓
+                    DOM is updated
+                    ↓
+                    Cart count changes
+                    ↓
+                    Total price changes</div>
+                <p>That same select → listen → update loop powers most interactive websites you use every day.</p>
+            </section>
+
+            <section id="roadmap">
+                <h2><span class="section-number">19</span>Learning roadmap & practice projects</h2>
+                <p>A sensible order to learn the DOM in:</p>
+                <div class="ascii-tree">1. Understand the DOM
+                    ↓
+                    2. Select elements
+                    ↓
+                    3. Change text/content
+                    ↓
+                    4. Change styles
+                    ↓
+                    5. Work with classes
+                    ↓
+                    6. Work with attributes
+                    ↓
+                    7. Create elements
+                    ↓
+                    8. Remove elements
+                    ↓
+                    9. Learn events
+                    ↓
+                    10. Learn the event object
+                    ↓
+                    11. Learn forms
+                    ↓
+                    12. Learn DOM traversal
+                    ↓
+                    13. Learn event bubbling
+                    ↓
+                    14. Learn event delegation
+                    ↓
+                    15. Build DOM projects</div>
+
+                <p>Once the fundamentals click, building projects teaches far more than reading theory:</p>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h4>Beginner</h4>
+                        <ul>
+                            <li>Counter</li>
+                            <li>Digital clock</li>
+                            <li>Color changer</li>
+                            <li>Random quote generator</li>
+                            <li>Show/hide password</li>
+                            <li>Character counter</li>
+                        </ul>
+                    </div>
+                    <div class="project-card">
+                        <h4>Intermediate</h4>
+                        <ul>
+                            <li>Todo list</li>
+                            <li>Calculator</li>
+                            <li>Quiz application</li>
+                            <li>Image slider</li>
+                            <li>Modal popup</li>
+                            <li>Form validator</li>
+                            <li>Dark mode website</li>
+                        </ul>
+                    </div>
+                    <div class="project-card">
+                        <h4>Advanced</h4>
+                        <ul>
+                            <li>Shopping cart</li>
+                            <li>Restaurant ordering system</li>
+                            <li>Expense tracker</li>
+                            <li>Notes application</li>
+                            <li>Dynamic dashboard</li>
+                            <li>Product filtering system</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="faq">
+                <h2><span class="section-number">20</span>Interview questions to be ready for</h2>
+
+                <h3>Basic</h3>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">1.</span> What is the DOM, and what does the
+                        acronym stand for?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">2.</span> What is a DOM tree?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">3.</span> What is the difference between HTML and
+                        the DOM?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">4.</span> What is the <code>document</code>
+                        object?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">5.</span> How do you select an element by its ID?
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">6.</span> What's the difference between
+                        <code>querySelector()</code> and <code>querySelectorAll()</code>?</div>
+                </div>
+
+                <h3>Intermediate</h3>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">7.</span> What's the difference between
+                        <code>textContent</code>, <code>innerText</code>, and <code>innerHTML</code>?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">8.</span> What is <code>classList</code> used
+                        for?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">9.</span> How do you create and remove an element
+                        dynamically?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">10.</span> What does
+                        <code>addEventListener()</code> do, and why prefer it over inline handlers?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">11.</span> What is the event object, and what is
+                        event bubbling?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">12.</span> What is event delegation, and what
+                        does <code>preventDefault()</code> do?</div>
+                </div>
+
+                <h3>Advanced</h3>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">13.</span> What is DOM traversal?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">14.</span> What's the difference between
+                        <code>children</code> and <code>childNodes</code>?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">15.</span> What's the difference between
+                        <code>append()</code> and <code>appendChild()</code>?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">16.</span> How can you improve DOM performance in
+                        a busy UI?</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><span class="faq-number">17.</span> What is <code>DOMContentLoaded</code>,
+                        and how does event propagation work overall?</div>
+                </div>
+            </section>
+
+            <section id="conclusion">
+                <h2><span class="section-number">21</span>Conclusion</h2>
+                <div class="conclusion-box">
+                    <p>
+                        The <strong>DOM is one of the most important concepts in JavaScript</strong> because it's
+                        the connection between your code and the actual webpage a user sees.
+                    </p>
+                    <p>The core pattern to remember is:</p>
+                    <div class="conclusion-flow">Select → Modify → Listen → Create → Update</div>
+                    <pre><span class="code-label">js</span><code>const button = document.querySelector("#button");
+
+button.addEventListener("click", function() {
+
+    const heading = document.querySelector("h1");
+
+    heading.textContent = "Hello JavaScript!";
+    heading.classList.toggle("active");
+
+});</code></pre>
+                    <p>
+                        That small snippet is the whole idea of DOM programming in miniature: select an
+                        element, listen for an event, and dynamically change the page. Once selection,
+                        events, forms, traversal, and delegation feel natural, you'll have a solid
+                        foundation for building interactive apps — and for moving on to frameworks like React.
+                    </p>
+                </div>
+                <a class="back-to-top" href="#intro">↑ Back to top</a>
+            </section>
+
+        </article>
+
+        <footer class="article-footer">
+            Written &amp; coded with <span class="heart">♥</span> by Surya
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .learn-more {
+            position: relative;
+
+            width: 190px;
+            height: 58px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 18px 0 22px;
+
+            background: #0c0c0c;
+            color: #f4f2ec;
+
+            border: 1px solid #2b2b2b;
+            border-radius: 0;
+
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+
+            cursor: pointer;
+
+            transform-style: preserve-3d;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.3s ease;
+        }
+
+
+        /* ORANGE WIPE */
+
+        .learn-more::before {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            background: #e8501f;
+
+            transform: scaleX(0);
+            transform-origin: left;
+
+            z-index: 0;
+
+            transition:
+                transform 0.4s cubic-bezier(.77, 0, .18, 1);
+        }
+
+
+        /* SMALL 3D ORANGE EDGE */
+
+        .learn-more::after {
+            content: "";
+
+            position: absolute;
+
+            left: 4px;
+            right: -4px;
+            bottom: -4px;
+
+            height: 4px;
+
+            background: #e8501f;
+
+            z-index: -1;
+
+            transition:
+                left 0.25s ease,
+                right 0.25s ease,
+                bottom 0.25s ease;
+        }
+
+
+        /* TEXT */
+
+        .lm-text {
+            position: relative;
+            z-index: 2;
+
+            transition:
+                transform 0.35s ease,
+                color 0.3s ease;
+        }
+
+
+        /* ARROW */
+
+        .lm-arrow {
+            position: relative;
+            z-index: 2;
+
+            color: #96938c;
+
+            font-size: 20px;
+
+            opacity: 0;
+
+            transform: translateX(-8px);
+
+            transition:
+                opacity 0.25s ease,
+                transform 0.35s ease,
+                color 0.3s ease;
+        }
+
+
+        /* =========================
+   HOVER
+========================= */
+
+        .learn-more:hover {
+            border-color: #e8501f;
+
+            transform: translate(-3px, -3px);
+        }
+
+
+        .learn-more:hover::before {
+            transform: scaleX(1);
+        }
+
+
+        /* Move the small depth */
+
+        .learn-more:hover::after {
+            left: 3px;
+            right: -3px;
+            bottom: -3px;
+        }
+
+
+        /* Move text */
+
+        .learn-more:hover .lm-text {
+            color: #0c0c0c;
+
+            transform: translateX(5px);
+        }
+
+
+        /* Reveal arrow */
+
+        .learn-more:hover .lm-arrow {
+            opacity: 1;
+
+            color: #0c0c0c;
+
+            transform: translateX(0);
+        }
+
+
+        /* =========================
+   CLICK
+========================= */
+
+        .learn-more:active {
+            transform: translate(0, 0);
+        }
+
+        .learn-more:active::after {
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="learn-more">
+        <span class="lm-text">Learn More</span>
+        <span class="lm-arrow">↗</span>
+    </button>
+</body>
+
+</html>
