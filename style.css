@@ -2239,12 +2239,9 @@ label:focus-visible {
   .hero-photo-light {
     height: 250px;
     width: 350px;
-    
   }
   
   .hero-location-badge {
-    position: relative;
-    left: 80px;
     font-size: .58rem;
     padding: .4rem .6rem;
     bottom: -1rem;
