@@ -2237,8 +2237,6 @@ label:focus-visible {
   
   .hero-photo-dark,
   .hero-photo-light {
-    position: relative;
-    right: 100px;
     height: 250px;
     width: 350px;
     
