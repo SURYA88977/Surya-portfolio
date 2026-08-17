@@ -317,7 +317,8 @@ section {
   background-repeat: no-repeat;
   background-position: center center;
   transition: left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
-  }
+    background-color 150ms ease;
+}
 
 .ui-switch .circle::before {
   content: "";
@@ -2182,7 +2183,8 @@ label:focus-visible {
 
   .hero-photo-dark,
   .hero-photo-light {
-    height: 260px;
+    width: 100%;
+    height: 320px;
   }
 
   .hero-subtitle-mobile {
@@ -2232,15 +2234,13 @@ label:focus-visible {
   }
 }
 
-
 @media (max-width: 480px) {
-  
+
   .hero-photo-dark,
   .hero-photo-light {
-    height: 250px;
-    width: 350px;
+    height: 220px;
   }
-  
+
   .hero-location-badge {
     font-size: .58rem;
     padding: .4rem .6rem;
@@ -2248,23 +2248,6 @@ label:focus-visible {
   }
 }
 
-@media(max-width:768px){
-  
-  .hero-photo-dark,
-  .hero-photo-light {
-    margin-left: 150px;
-    height: 350px;
-    width: 400px;
-  
-  }
-
-  .hero-location-badge {
-    margin-right: 80px;
-    font-size: .58rem;
-    padding: .4rem .6rem;
-    bottom: -1rem;
-  }
-}
 
 /* =====================================================================
    14. SCROLL-DRIVEN ANIMATIONS (reveal-on-scroll, progress bar, back-to-top)
